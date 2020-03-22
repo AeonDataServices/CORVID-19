@@ -40,8 +40,8 @@ export class D3Chart {
   determineScale() {
     let allData = this.graphs.map(graph => graph.data).flat()
     this.yScale = d3.scaleLinear()
-                  .range([this.height, 0])
-                  .domain([0, d3.max(allData, d => d[1])])
+      .range([this.height, 0])
+      .domain([0, d3.max(allData, d => d[1])])
 
     this.xScale = d3.scaleTime()
       .range([0, this.width])
