@@ -1,10 +1,36 @@
 import { Util } from './utility.js'
+
+const fixedMargin = {
+  top: 40, bottom: 40,
+  left: 40, right: 40
+}
+
 export class D3Chart {
   constructor(svgID, data) {
+    window.addEventListener("resize", this.resize.bind(this ))
+    this.svgID = svgID
+    this.data = data
     this.canvas = document.querySelector(svgID)
     this.getElementSize()
-    console.log(data)
-    this.svg = d3.select(svgID)
+    this.draw()
+  }
+
+  getElementSize() {
+    let style = this.canvas.currentStyle || window.getComputedStyle(this.canvas)
+    this.margin = fixedMargin
+    console.log(this)
+    this.width = this.canvas.parentElement.offsetWidth - this.margin.left - this.margin.right
+    this.height = this.canvas.parentElement.offsetHeight - this.margin.top - this.margin.bottom
+  }
+
+  resize() {
+    this.getElementSize()
+    this.draw()
+  }
+
+  draw() {
+    document.querySelector(this.svgID).innerHTML = ''
+    this.svg = d3.select(this.svgID)
         .attr("width", this.width + this.margin.left + this.margin.right)
         .attr("height", this.height + this.margin.top + this.margin.bottom)
       .append("g")
@@ -12,18 +38,18 @@ export class D3Chart {
 
     const yScale = d3.scaleLinear()
                   .range([this.height, 0])
-                  .domain([0, d3.max(data, d => d[1])]);
+                  .domain([0, d3.max(this.data, d => d[1])]);
 
     const xScale = d3.scaleTime()
                     .range([0, this.width])
-                    .domain( d3.extent(data, d => {return new Date(d[0])} ))
+                    .domain( d3.extent(this.data, d => {return new Date(d[0])} ))
     this.svg.selectAll("rect")
-      .data(data)
+      .data(this.data)
       .enter()
       .append("rect")
       .attr("y", d => yScale(d[1]))
-      .attr("x", (d,i) => i * this.width / data.length +1)
-      .attr("width", d => this.width / data.length )
+      .attr("x", (d,i) => i * this.width / this.data.length +1)
+      .attr("width", d => this.width / this.data.length )
       .attr("height", d => this.height - yScale(d[1]))
       .attr("class", "bar")
       .attr("fill", "#33ADFF")
@@ -49,16 +75,5 @@ export class D3Chart {
     this.svg.append("g")
       .attr("id", "y-axis")
       .call(d3.axisLeft(yScale));
-  }
-
-  getElementSize() {
-    let style = this.canvas.currentStyle || window.getComputedStyle(this.canvas)
-    this.margin = {
-      top: style.marginTop, bottom: style.marginBottom,
-      left: style.marginLeft, right: style.marginRight
-    }
-    console.log(this)
-    this.width = this.canvas.parentElement.offsetWidth - Util.pxToInt(this.margin.left) - Util.pxToInt(this.margin.right)
-    this.height = this.canvas.parentElement.offsetHeight - Util.pxToInt(this.margin.top) - Util.pxToInt(this.margin.bottom)
   }
 }
