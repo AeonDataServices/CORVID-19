@@ -1,30 +1,30 @@
+import { Util } from './utility.js'
 export class D3Chart {
-  constructor(containerID, data) {
+  constructor(svgID, data) {
+    this.canvas = document.querySelector(svgID)
+    this.getElementSize()
     console.log(data)
-    let margin = {top: 10, right: 30, bottom: 30, left: 60},
-      width = 800 - margin.left - margin.right,
-      height = 400 - margin.top - margin.bottom;
-    this.svg = d3.select("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+    this.svg = d3.select(svgID)
+        .attr("width", this.width + this.margin.left + this.margin.right)
+        .attr("height", this.height + this.margin.top + this.margin.bottom)
       .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
 
     const yScale = d3.scaleLinear()
-                  .range([height, 0])
+                  .range([this.height, 0])
                   .domain([0, d3.max(data, d => d[1])]);
 
     const xScale = d3.scaleTime()
-                    .range([0, width])
-                    .domain( d3.extent(data, d => {return new Date(d[0])} ));
+                    .range([0, this.width])
+                    .domain( d3.extent(data, d => {return new Date(d[0])} ))
     this.svg.selectAll("rect")
       .data(data)
       .enter()
       .append("rect")
       .attr("y", d => yScale(d[1]))
-      .attr("x", (d,i) => i * width / data.length +1)
-      .attr("width", d => width / data.length )
-      .attr("height", d => height - yScale(d[1]))
+      .attr("x", (d,i) => i * this.width / data.length +1)
+      .attr("width", d => this.width / data.length )
+      .attr("height", d => this.height - yScale(d[1]))
       .attr("class", "bar")
       .attr("fill", "#33ADFF")
       .attr("data-date", d => d[0])
@@ -43,11 +43,22 @@ export class D3Chart {
       .on("mouseout", () => tooltip.style("opacity", 0));
 
     this.svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
+      .attr("transform", "translate(0," + this.height + ")")
       .attr("id", "x-axis")
       .call(d3.axisBottom(xScale));
     this.svg.append("g")
       .attr("id", "y-axis")
       .call(d3.axisLeft(yScale));
+  }
+
+  getElementSize() {
+    let style = this.canvas.currentStyle || window.getComputedStyle(this.canvas)
+    this.margin = {
+      top: style.marginTop, bottom: style.marginBottom,
+      left: style.marginLeft, right: style.marginRight
+    }
+    console.log(this)
+    this.width = this.canvas.parentElement.offsetWidth - Util.pxToInt(this.margin.left) - Util.pxToInt(this.margin.right)
+    this.height = this.canvas.parentElement.offsetHeight - Util.pxToInt(this.margin.top) - Util.pxToInt(this.margin.bottom)
   }
 }
