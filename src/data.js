@@ -5,10 +5,9 @@ class Data {
   }
 
   async prepareData() {
-    let WHOData = await this.processInput('./data/cntry_stat_who_wp.json')
-    let ECDCData = await this.processInput('./data/cntry_stat_ecdc_wp.json')
-    let OWIDData = await this.processInput('./data/cntry_stat_owid.json')
-    this.dataSet = {'WHODATA': WHOData, 'ECDCData': ECDCData, 'OWIDData': OWIDData}
+    let cases = await fetch('https://raw.githubusercontent.com/Range-Point/Covid-Data-Pipeline/master/json/total_cases.json').then(res => res.json())
+    let deaths = await fetch('https://raw.githubusercontent.com/Range-Point/Covid-Data-Pipeline/master/json/total_deaths.json').then(res => res.json())
+    this.dataSet = {'cases': cases, 'deaths': deaths}
     this.dataInitialized = true;
     return this.dataSet
   }
