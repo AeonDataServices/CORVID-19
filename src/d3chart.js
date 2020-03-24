@@ -36,6 +36,12 @@ export class D3Chart {
     if (redraw) this.draw()
   }
 
+  removeGraph(country, redraw = false) {
+    this.graphs = this.graphs.filter(graph => graph.label !== country)
+    console.log(this.graphs, country)
+    if (redraw) this.draw()
+  }
+
   determineScale() {
     let allData = this.graphs.map(graph => graph.data).flat()
     this.yScale = d3.scaleLinear()
