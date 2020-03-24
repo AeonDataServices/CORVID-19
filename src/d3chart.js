@@ -6,16 +6,15 @@ const fixedMargin = {
 }
 
 export class D3Chart {
-  constructor(svgID, tooltipID) {
+  constructor(interfaceID) {
     window.addEventListener("resize", this.resize.bind(this))
-    this.svgID = svgID
-    this.tooltipID = tooltipID
+    this.interfaceID = interfaceID
     this.graphs = []
     this.dataCount = 0
     this.xScale = null
     this.yScale = null
     this.tooltipLine = null
-    this.canvas = document.querySelector(svgID)
+    this.canvas = document.querySelector(interfaceID).querySelector('.chart')
     this.getElementSize()
     this.draw()
   }
@@ -52,8 +51,8 @@ export class D3Chart {
   draw() {
     if (this.graphs.length === 0) return
     this.determineScale()
-    document.querySelector(this.svgID).innerHTML = ''
-    this.svg = d3.select(this.svgID)
+    this.canvas.innerHTML = ''
+    this.svg = d3.select(`${this.interfaceID} .chart`)
         .attr("width", this.width + this.margin.left + this.margin.right)
         .attr("height", this.height + this.margin.top + this.margin.bottom)
       .append("g")
@@ -90,13 +89,13 @@ export class D3Chart {
   }
 
   drawTooltip() {
-    let mouseX = d3.mouse(document.querySelector(this.svgID + ' rect'))[0]
+    let mouseX = d3.mouse(this.canvas.querySelector('rect'))[0]
     this.tooltipLine.attr('stroke', 'black')
       .attr('x1', mouseX)
       .attr('x2', mouseX)
       .attr('y1', 0)
       .attr('y2', this.height)
-    let tooltip = document.querySelector(this.tooltipID)
+    let tooltip = document.querySelector(this.interfaceID).querySelector('.chartTooltip')
     let text = ''
     for (let graph of this.graphs) {
       let index = Math.round(graph.data.length * (mouseX / this.width))
