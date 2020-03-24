@@ -3,8 +3,13 @@ html {
     font-family: 'Roboto', sans-serif;
   }
 
-  #container {
+  .wrapper {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
     margin: 10vh auto;
+  }
+  #container {
     width: 50vw;
     height: 50vh;
     text-align: center;
@@ -13,8 +18,17 @@ html {
     box-shadow: 3px 3px #252b38;
   }
 
+  .infoWrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+  }
+
   #chartTooltip {
-    color: white;
+    color: #1D2129;
+    display: inline;
+    margin: 2vh;
   }
 
   #title {

@@ -1,7 +1,8 @@
 export const colors = {
   BLUE: 'steelBlue',
   GREEN: 'DarkGreen',
-  RED: 'Red'
+  RED: 'Red',
+  ORANGE: 'Orange'
 }
 
 export class D3Graph {

@@ -100,7 +100,7 @@ export class D3Chart {
     let text = ''
     for (let graph of this.graphs) {
       let index = Math.round(graph.data.length * (mouseX / this.width))
-      text = text + `( ${graph.data[index][0]}) ${graph.label}: ${graph.data[index][1]} <br/>`
+      text = text + `<i class="fas fa-square" style="color:${graph.color}"></i> ( ${graph.data[index][0]}) ${graph.label}: ${graph.data[index][1]} <br/>`
     }
     tooltip.innerHTML = text
   }

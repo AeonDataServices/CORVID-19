@@ -4,11 +4,10 @@ import { D3Graph, colors } from './d3graph.js'
 data.getDataSet().then(data => {
   console.log(data)
   let chart = new D3Chart("#chartSvg", "#chartTooltip")
-  //for (let line of data.WHODATA) {
-  //  chart.addGraph(new D3Graph(line.confirmed, colors.BLUE))
-  //}
-  chart.addGraph(new D3Graph('Denmark', data.cases.denmark, colors.BLUE))
-  chart.addGraph(new D3Graph('Netherlands', data.cases.netherlands, colors.GREEN))
-  chart.addGraph(new D3Graph('Norway', data.cases.norway, colors.RED))
+  let convert = data => Object.keys(data).map(key => [key, data[key]])
+  chart.addGraph(new D3Graph('Sweden', convert(data.cases.Sweden), colors.BLUE))
+  chart.addGraph(new D3Graph('Denmark', convert(data.cases['Denmark']), colors.GREEN))
+  chart.addGraph(new D3Graph('Norway', convert(data.cases['Norway']), colors.RED))
+  chart.addGraph(new D3Graph('Netherlands', convert(data.cases['Netherlands']), colors.ORANGE))
   chart.draw()
 })
