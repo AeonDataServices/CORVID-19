@@ -1,5 +1,6 @@
-class Data {
+class DataService {
   constructor() {
+    this.dataSet = {}
     this.dataInitialized = false;
     this.dataInitializationPromise = this.prepareData()
   }
@@ -15,8 +16,12 @@ class Data {
   }
 
   getDataSet() {
+    return this.dataSet
+  }
+
+  isDataInitialized() {
     return (this.dataInitialized) ? new Promise(resolve => resolve(this.dataSet)) : this.dataInitializationPromise
   }
 }
 
-export let data = new Data();
+export let dataService = new DataService();
