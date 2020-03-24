@@ -1,57 +1,39 @@
 html {
-    background-color: #1d2129;
     font-family: 'Roboto', sans-serif;
   }
 
-  .wrapper {
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 10vh auto;
-  }
-  #container {
-    width: 50vw;
-    height: 50vh;
-    text-align: center;
-    background-color: white;
-    color: #1d2129;
-    box-shadow: 3px 3px #252b38;
-  }
+.wrapper {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10vh auto;
+}
+.container {
+  width: 50vw;
+  height: 50vh;
+  text-align: center;
+  background-color: white;
+  box-shadow: 3px 3px #252b38;
+}
 
-  .infoWrapper {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background-color: white;
-  }
+.infoWrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+}
 
-  #chartTooltip {
-    color: #1D2129;
-    display: inline;
-    margin: 2vh;
-  }
+.chartTooltip {
+  color: #1D2129;
+  display: inline;
+  margin: 2vh;
+}
 
-  #title {
-    padding: 30px 10px 10px 10px;
-    font-size: 44px;
-    font-weight: 500;
-  }
+.bar:hover {
+  fill: white;
+}
 
-  .bar:hover {
-    fill: white;
-  }
-
-  #tooltip {
-    opacity: 0;
-    position: absolute;
-    pointer-events: none;
-    background-color: rgba(34,39,48, 80%);
-    color: white;
-    box-shadow: 3px 3px #252b38;
-  }
-
-  #tooltip > p {
-    margin: 5px;
-    padding: 5px;
-    text-align: center;
-  }
+.countrySelector {
+  padding: 10px 20px;
+  width: 250px;
+}

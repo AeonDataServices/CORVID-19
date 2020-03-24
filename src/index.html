@@ -5,17 +5,31 @@
     <title>COVID-19</title>
     <link rel="stylesheet" href="./styles/index.css">
     <script src="https://kit.fontawesome.com/467034ff6c.js" crossorigin="anonymous"></script>
+    <!-- Compiled and minified CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   </head>
   <body>
-    <div class="wrapper">
-      <div id="container">
-        <svg class="chart" id="chartSvg"></svg>
+    <div id="mainDisplay" class="wrapper">
+      <div class="countrySelector">
+        <div class="input-field">
+          <input type="text" class="autocomplete" placeholder="Add countries">
+        </div>
+        <label for="autocomplete">Autocomplete</label>
+        <p><b>Selected</b></p>
+        <div class="selectedCountries">
+          <span> <input type="checkbox"> Denmark</span>
+        </div>
+      </div>
+      <div class="container">
+        <svg class="chart"></svg>
       </div>
       <div class="infoWrapper">
-        <div id="chartTooltip"></div>
+        <div class="chartTooltip"></div>
       </div>
     </div>
   </body>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script type="module" src="utility.js"></script>
   <script type="module" src="d3chart.js"></script>

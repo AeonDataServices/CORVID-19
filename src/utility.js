@@ -1,12 +1,12 @@
-export let Util = {
-  /*
-   * Expects a size input string from css, for example "0px"
-   * Removes the "px" and converts it to an int
-   * If number can't be converted to an int, return -1
-   */
-  pxToInt(pixelString) {
-    let newString = pixelString.replace('px', '')
-    let newInt = parseInt(pixelString)
-    return (Number.isInteger(newInt)) ? newInt : -1
-  }
+export const Util = {
+  colors: [
+    '#488f31',
+    '#88a037',
+    '#c0af4a',
+    '#f4bd6a',
+    '#ef9556',
+    '#e56b4e',
+    '#d43d51'
+  ],
+  convertData: data => Object.keys(data).map(key => [key, data[key]])
 }
