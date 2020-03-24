@@ -11,11 +11,15 @@
   <body>
     <div id="mainDisplay" class="wrapper">
       <div class="countrySelector">
+        <p><b>Data</b></p>
+        <select multiple>
+          <option selected value="cases">Cases</option>
+          <option value="deaths">Deaths</option>
+        </select>
+        <p><b>Countries</b></p>
         <div class="input-field">
           <input type="text" class="autocomplete" placeholder="Add countries">
         </div>
-        <label for="autocomplete">Autocomplete</label>
-        <p><b>Selected</b></p>
         <div class="selectedCountries"></div>
       </div>
       <div class="container">
