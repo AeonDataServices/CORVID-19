@@ -26,6 +26,14 @@ export class D3Chart {
     this.height = this.canvas.parentElement.offsetHeight - this.margin.top - this.margin.bottom
   }
 
+  clear() {
+    this.graphs = []
+  }
+
+  graphExists(label) {
+    return (this.graphs.filter(graph => graph.label === label).length > 0)
+  }
+
   resize() {
     this.getElementSize()
     this.draw()
