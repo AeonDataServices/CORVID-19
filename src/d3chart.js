@@ -24,6 +24,7 @@ export class D3Chart {
     this.margin = fixedMargin
     this.width = this.canvas.parentElement.offsetWidth - this.margin.left - this.margin.right
     this.height = this.canvas.parentElement.offsetHeight - this.margin.top - this.margin.bottom
+    console.log(this.canvas.parentElement.offsetHeight, this.margin.top, this.margin.bottom)
   }
 
   clear() {
