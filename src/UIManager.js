@@ -9,10 +9,12 @@ export class UIManager {
     this.chart = new D3Chart(baseID)
     this.statistic = statistic
     this.renderedCountries = {}
+    this.domainIndices = []
     this.dataToShow = ['cases']
     this.renderCountryList()
     this.addDefaultCountries()
     this.initDateRange()
+    this.chartChanged()
     this.dataSelector = M.FormSelect.init(this.interface.querySelector('select'), {});
     this.interface.querySelector('select').onchange = () => this.changeData()
   }
@@ -25,7 +27,6 @@ export class UIManager {
   renderCountryList() {
     let countries = dataService.getDataSet()
     let countriesOptions = {}
-    console.log(countries)
     for (let country of Object.keys(countries)) countriesOptions[country] = null
     let autocomplete = M.Autocomplete.init(
       this.interface.querySelector('.autocomplete'),
@@ -47,29 +48,30 @@ export class UIManager {
         'min': 0,
         'max': (dateRange.length - 1)
       },
-      format: {to: dateIndex => Util.dateShortString(Math.round(dateIndex)), from: Number}
+      format: {to: dateIndex => Util.dateShortStringFromIndex(Math.round(dateIndex)), from: Number}
     })
+    this.domainIndices = [0, dateRange.length - 1]
     slider.on('update', this.changeDateRange.bind(this))
   }
 
   changeDateRange(value, handle, originalValues) {
-    this.chart.changeDomain(...originalValues.map(val=>Math.round(val)))
+    this.domainIndices = originalValues.map(val=>Math.round(val))
+    this.chart.changeDomain(...this.domainIndices)
+    this.chartChanged()
   }
 
   selectCountry(country) {
     this.interface.querySelector('.autocomplete').value = ''
     this.renderedCountries[country] = this.dataToShow
     this.drawCountry(country)
+    this.chartChanged()
   }
 
   drawCountry(country) {
     for (let data of this.dataToShow) {
       let label = `${country} (${data})`
-      if (this.chart.graphExists(label)) {
-        console.log('exists', label)
-        continue
-      }
-      let countryData = dataService.getDataSet()[country][data]
+      if (this.chart.graphExists(label)) continue
+      let countryData = dataService.getCountryData(country)[data]
       let color = Util.colors[this.chart.graphs.length]
       this.chart.addGraph(new D3Graph(label, countryData, color))
       this.chart.draw()
@@ -85,24 +87,51 @@ export class UIManager {
   }
 
   removeCountry(country, data, target) {
-    console.log('args', arguments)
     this.chart.removeGraph(`${country} (${data})`, true)
     let element = target.closest('.countryOption')
     element.parentNode.removeChild(element)
     //this.renderedCountries = this.renderedCountries.filter(item => country !== item)
     this.renderedCountries[country] = this.renderedCountries[country].filter(item => data !== item)
     if (this.renderedCountries[country].length === 0) delete this.renderedCountries[country]
-    console.log(this.renderedCountries)
+    this.chartChanged()
   }
 
   changeData() {
     this.chart.clear()
     this.interface.querySelector('.selectedCountries').innerHTML = ''
     this.dataToShow = this.dataSelector.getSelectedValues()
-    console.log(this.renderedCountries, this.dataToShow)
     for (let country of Object.keys(this.renderedCountries)) {
       this.renderedCountries[country] = this.dataToShow
       this.drawCountry(country)
+    }
+    this.chartChanged()
+  }
+
+  chartChanged() {
+    this.interface.querySelector('.chartTitle').innerHTML = `Showing ${this.dataToShow.join(', ')} for ${Object.keys(this.renderedCountries).join(', ')}`
+    this.drawTable()
+  }
+
+  drawTable() {
+    let thead = this.interface.querySelector('.data-table thead tr')
+    thead.innerHTML = ''
+    Util.appendElement(thead, 'th', 'Date')
+    for (let country of Object.keys(this.renderedCountries)) {
+      for (let data of this.dataToShow) Util.appendElement(thead, 'th', `${data}(${country})`)
+    }
+    let tbody = this.interface.querySelector('.data-table tbody')
+    tbody.innerHTML = ''
+    let dateRange = dataService.getDateRange()
+    for (let i = dateRange.length - 1; i > 0 ; i--) {
+      let date = dateRange[i]
+      if (i < this.domainIndices[0] || i > this.domainIndices[1]) {continue}
+      let row = Util.appendElement(tbody, 'tr', '')
+      Util.appendElement(row, 'td', `${Util.dateShortStringFromIndex(i)}`)
+      for (let country of Object.keys(this.renderedCountries)) {
+        for (let data of this.dataToShow) {
+          Util.appendElement(row, 'td', dataService.getCountryData(country)[data][i][1])
+        }
+      }
     }
   }
 }
