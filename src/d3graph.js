@@ -12,7 +12,16 @@ export class D3Graph {
     this.color = color
   }
 
-  draw() {
+  draw(chart) {
+    chart.svg.append("path")
+      .datum(this.getDomainData(chart.domain))
+      .attr("fill", "none")
+      .attr("stroke", this.color)
+      .attr("stroke-width", 1.5)
+      .attr("d", chart.line)
+  }
 
+  getDomainData(domain) {
+    return this.data.filter(dataPoint => dataPoint[0] >= domain[0] && dataPoint[0] <= domain[1])
   }
 }
