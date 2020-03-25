@@ -1,3 +1,5 @@
+import { Util } from './utility.js'
+
 class DataService {
   constructor() {
     this.dataSet = {}
@@ -7,8 +9,13 @@ class DataService {
 
   async prepareData() {
     let cases = await fetch('https://raw.githubusercontent.com/Range-Point/Covid-Data-Pipeline/master/json/total_cases.json').then(res => res.json())
+    let casesKeys = Object.keys(cases)
+    for (let singleCase of casesKeys) cases[singleCase] = Util.convertData(cases[singleCase])
     let deaths = await fetch('https://raw.githubusercontent.com/Range-Point/Covid-Data-Pipeline/master/json/total_deaths.json').then(res => res.json())
+    let deathsKeys = Object.keys(deaths)
+    for (let death of deathsKeys) deaths[death] = Util.convertData(deaths[death])
     this.dataSet = {'cases': cases, 'deaths': deaths}
+    console.log(this.dataSet)
     this.dataInitialized = true;
     return this.dataSet
   }
@@ -22,7 +29,7 @@ class DataService {
   }
 
   getDateRange() {
-    return Object.keys(this.dataSet.cases.Denmark).map(d => new Date(d))
+    return this.dataSet.cases.Denmark.map(d => d[0])
   }
 
   isDataInitialized() {

@@ -15,8 +15,14 @@ export const Util = {
     date.setHours(0,0,0,0)
     return date
   },
-  dateShortString: (dateIndex) => {
+  dateShortStringFromIndex: (dateIndex) => {
     let dateRange = dataService.getDateRange()
     return `${dateRange[dateIndex].getMonth() + 1}/${dateRange[dateIndex].getDate()}`
+  },
+  appendElement: (target, type, content) => {
+    let element = document.createElement(type)
+    target.appendChild(element)
+    element.innerHTML = content
+    return element
   }
 }
