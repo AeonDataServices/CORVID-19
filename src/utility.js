@@ -1,3 +1,4 @@
+import { dataService } from './data.js'
 export const Util = {
   colors: [
     '#488f31',
@@ -13,5 +14,9 @@ export const Util = {
     if (date.getHours() >= 12) date.setDate(date.getDate() + 1)
     date.setHours(0,0,0,0)
     return date
+  },
+  dateShortString: (dateIndex) => {
+    let dateRange = dataService.getDateRange()
+    return `${dateRange[dateIndex].getMonth() + 1}/${dateRange[dateIndex].getDate()}`
   }
 }

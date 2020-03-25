@@ -53,10 +53,14 @@ export class D3Chart {
     if (redraw) this.draw()
   }
 
+  changeDomain(minIndex, maxIndex) {
+    this.domain =  [this.graphs[0].data[minIndex][0], this.graphs[0].data[maxIndex][0]]
+    this.determineScale()
+    this.draw()
+  }
+
   determineScale() {
     let allData = this.graphs.map(graph => graph.data).flat()
-    this.domain = d3.extent(this.graphs[0].data, d => d[0])
-    this.domain = [this.graphs[0].data[70][0], this.graphs[0].data[82][0]]
     this.yScale = d3.scaleLinear()
       .range([this.height, 0])
       .domain([0, d3.max(allData, d => d[1])])
@@ -81,8 +85,6 @@ export class D3Chart {
       .append("g")
         .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
     this.tooltipLine = this.svg.append('line')
-    console.log('ttl', this.tooltipLine)
-    console.log()
     this.xScale
     this.svg.append("g")
       .attr("transform", "translate(0," + this.height + ")")

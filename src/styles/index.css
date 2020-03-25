@@ -36,3 +36,7 @@ html, body {
   border-radius: 2px;
   padding: 2px 5px;
 }
+
+.dateRange-slider {
+  margin: 0 35px;
+}
