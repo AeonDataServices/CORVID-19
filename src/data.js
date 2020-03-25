@@ -5,9 +5,7 @@ class Data {
   }
 
   async prepareData() {
-    let cases = await fetch('https://raw.githubusercontent.com/Range-Point/Covid-Data-Pipeline/master/json/total_cases.json').then(res => res.json())
-    let deaths = await fetch('https://raw.githubusercontent.com/Range-Point/Covid-Data-Pipeline/master/json/total_deaths.json').then(res => res.json())
-    this.dataSet = {'cases': cases, 'deaths': deaths}
+    this.dataSet = await fetch('https://raw.githubusercontent.com/Range-Point/Covid-Data-Pipeline/master/json/full_data.json').then(res => res.json())
     this.dataInitialized = true;
     return this.dataSet
   }
