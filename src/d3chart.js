@@ -13,6 +13,7 @@ export class D3Chart {
     this.dataCount = 0
     this.xScale = null
     this.yScale = null
+    this.xRange = []
     this.tooltipLine = null
     this.canvas = document.querySelector(interfaceID).querySelector('.chart')
     this.getElementSize()
@@ -42,6 +43,7 @@ export class D3Chart {
 
   addGraph(graph, redraw = false) {
     this.graphs.push(graph)
+    this.determineScale()
     if (redraw) this.draw()
   }
 
@@ -59,13 +61,11 @@ export class D3Chart {
 
     this.xScale = d3.scaleTime()
       .range([0, this.width])
-      .domain( d3.extent(allData, d => {return new Date(d[0])} ))
-
+      .domain(d3.extent(this.graphs[0].data, d => d[0]))
   }
 
   draw() {
     if (this.graphs.length === 0) return
-    this.determineScale()
     this.canvas.innerHTML = ''
     this.svg = d3.select(`${this.interfaceID} .chart`)
         .attr("width", this.width + this.margin.left + this.margin.right)
@@ -91,7 +91,7 @@ export class D3Chart {
 
     for (let graph of this.graphs) {
       let line = d3.line()
-        .x((d,i) => i * this.width / graph.data.length +1)
+        .x(d => this.xScale(d[0]))
         .y(d => this.yScale(d[1]))
         .curve(d3.curveMonotoneX)
       this.svg.append("path")
