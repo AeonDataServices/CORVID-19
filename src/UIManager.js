@@ -17,6 +17,9 @@ export class UIManager {
     this.chartChanged()
     this.dataSelector = M.FormSelect.init(this.interface.querySelector('select'), {});
     this.interface.querySelector('select').onchange = () => this.changeData()
+    this.interface.querySelector('svg rect.eventCatcher').addEventListener('mousedown', this.mousedown.bind(this))
+    this.interface.querySelector('svg rect.eventCatcher').addEventListener('mousemove', this.mousemove.bind(this))
+    this.interface.querySelector('svg rect.eventCatcher').addEventListener('mouseup', this.mouseup.bind(this))
   }
 
   addDefaultCountries() {
@@ -59,6 +62,33 @@ export class UIManager {
     this.domainIndices = originalValues.map(val=>Math.round(val))
     this.chart.changeDomain(...this.domainIndices)
     this.chartChanged()
+  }
+
+  mousedown(e) {
+    this.mouseDownPosition = this.dateIndexMouseX(e.offsetX, e.target.width.baseVal.value + 40)
+  }
+
+  mousemove(e) {
+    let mouseMovePosition = this.dateIndexMouseX(e.offsetX, e.target.width.baseVal.value + 40)
+    if (this.mouseDownPosition > -1) this.chart.renderBox(true, this.mouseDownPosition, mouseMovePosition)
+  }
+
+  mouseup(e) {
+    let mouseUpPosition = this.dateIndexMouseX(e.offsetX, e.target.width.baseVal.value + 40)
+    let diff = Math.abs (this.mouseDownPosition - mouseUpPosition)
+    if (diff > 2) {
+      this.chart.changeDomain(this.mouseDownPosition, mouseUpPosition)
+      this.chartChanged()
+    }
+    this.mouseDownPosition = -1
+    this.chart.renderBox(false)
+  }
+
+  dateIndexMouseX(mouseX, width) {
+    let range = this.domainIndices[1] - this.domainIndices[0]
+    let adjustedRange = range / width
+    let start = this.domainIndices[0]
+    return Math.round(start + mouseX * adjustedRange)
   }
 
   selectCountry(country) {

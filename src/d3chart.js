@@ -1,3 +1,4 @@
+import { dataService } from './data.js'
 import { Util } from './utility.js'
 
 const fixedMargin = {
@@ -15,6 +16,7 @@ export class D3Chart {
     this.yScale = null
     this.domain = []
     this.tooltipLine = null
+    this.mouseDownPosition = 0
     this.canvas = document.querySelector(interfaceID).querySelector('.chart')
     this.getElementSize()
     this.draw()
@@ -59,6 +61,18 @@ export class D3Chart {
     this.draw()
   }
 
+  renderBox(render, startIndex, endIndex) {
+    console.log()
+    this.dragBox.attr('opacity', (render ? 0.1 : 0))
+    if (render) {
+      let start = this.xScale(Util.roundDate(dataService.getDateRange()[startIndex]))
+      let end = this.xScale(Util.roundDate(dataService.getDateRange()[endIndex]))
+      this.dragBox
+        .attr('x', start)
+        .attr('width', end - start)
+    }
+  }
+
   determineScale() {
     let allData = this.graphs.map(graph => graph.data).flat()
     this.yScale = d3.scaleLinear()
@@ -97,7 +111,15 @@ export class D3Chart {
     this.svg.append("g")
       .attr("id", "y-axis")
       .call(d3.axisLeft(this.yScale))
+
+    this.dragBox = this.svg.append('rect')
+      .attr('class','dragger')
+      .attr('width', this.width)
+      .attr('height', this.height)
+      .attr('opacity', 0)
+
     this.svg.append('rect')
+      .attr('class','eventCatcher')
       .attr('width', this.width)
       .attr('height', this.height)
       .attr('opacity', 0)
@@ -110,9 +132,7 @@ export class D3Chart {
   }
 
   drawTooltip() {
-    let mouseX = d3.mouse(this.canvas.querySelector('rect'))[0]
-    let dateTime = this.xScale.invert(mouseX)
-    mouseX = this.xScale(Util.roundDate(dateTime))
+    let mouseX = this.dateAdjustedMouseX()
     this.tooltipLine.attr('stroke', 'black')
       .attr('x1', mouseX)
       .attr('x2', mouseX)
@@ -126,6 +146,12 @@ export class D3Chart {
       text = text + `<i class="fas fa-square" style="color:${graph.color}"></i> ( ${graph.data[index][0]}) ${graph.label}: ${graph.data[index][1]} <br/>`
     }
     tooltip.innerHTML = text
+  }
+
+  dateAdjustedMouseX() {
+    let mouseX = d3.mouse(this.canvas.querySelector('rect.eventCatcher'))[0]
+    let dateTime = this.xScale.invert(mouseX)
+    return this.xScale(Util.roundDate(dateTime))
   }
 
   removeTooltip() {
