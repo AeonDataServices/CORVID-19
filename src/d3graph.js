@@ -11,4 +11,8 @@ export class D3Graph {
     this.data = data
     this.color = color
   }
+
+  draw() {
+
+  }
 }
