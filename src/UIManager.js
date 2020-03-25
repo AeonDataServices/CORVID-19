@@ -49,6 +49,7 @@ export class UIManager {
       }
       let countryData = dataService.getDataSet()[data][country]
       let color = Util.colors[this.chart.graphs.length]
+      console.log(Util.convertData(countryData))
       this.chart.addGraph(new D3Graph(label, Util.convertData(countryData), color))
       this.chart.draw()
       let div = document.createElement('div')

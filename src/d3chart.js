@@ -13,7 +13,7 @@ export class D3Chart {
     this.dataCount = 0
     this.xScale = null
     this.yScale = null
-    this.xRange = []
+    this.domain = []
     this.tooltipLine = null
     this.canvas = document.querySelector(interfaceID).querySelector('.chart')
     this.getElementSize()
@@ -55,13 +55,21 @@ export class D3Chart {
 
   determineScale() {
     let allData = this.graphs.map(graph => graph.data).flat()
+    this.domain = d3.extent(this.graphs[0].data, d => d[0])
+    this.domain = [this.graphs[0].data[70][0], this.graphs[0].data[82][0]]
     this.yScale = d3.scaleLinear()
       .range([this.height, 0])
       .domain([0, d3.max(allData, d => d[1])])
 
     this.xScale = d3.scaleTime()
       .range([0, this.width])
-      .domain(d3.extent(this.graphs[0].data, d => d[0]))
+      .domain(this.domain)
+      //.domain(d3.extent(this.graphs[0].data, d => d[0]))
+
+    this.line = d3.line()
+      .x(d => this.xScale(d[0]))
+      .y(d => this.yScale(d[1]))
+      .curve(d3.curveMonotoneX)
   }
 
   draw() {
@@ -74,11 +82,16 @@ export class D3Chart {
         .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
     this.tooltipLine = this.svg.append('line')
     console.log('ttl', this.tooltipLine)
-
+    console.log()
+    this.xScale
     this.svg.append("g")
       .attr("transform", "translate(0," + this.height + ")")
       .attr("id", "x-axis")
-      .call(d3.axisBottom(this.xScale))
+      .call(
+        d3.axisBottom(this.xScale)
+          .tickValues(this.xScale.ticks(10))
+          .tickFormat(d3.timeFormat("%m/%d"))
+      )
     this.svg.append("g")
       .attr("id", "y-axis")
       .call(d3.axisLeft(this.yScale))
@@ -90,26 +103,20 @@ export class D3Chart {
       .on('mouseout', this.removeTooltip.bind(this))
 
     for (let graph of this.graphs) {
-      let line = d3.line()
-        .x(d => this.xScale(d[0]))
-        .y(d => this.yScale(d[1]))
-        .curve(d3.curveMonotoneX)
-      this.svg.append("path")
-        .datum(graph.data)
-        .attr("fill", "none")
-        .attr("stroke", graph.color)
-        .attr("stroke-width", 1.5)
-        .attr("d", line)
+      graph.draw(this)
     }
   }
 
   drawTooltip() {
     let mouseX = d3.mouse(this.canvas.querySelector('rect'))[0]
+    let dateTime = this.xScale.invert(mouseX)
+    mouseX = this.xScale(Util.roundDate(dateTime))
     this.tooltipLine.attr('stroke', 'black')
       .attr('x1', mouseX)
       .attr('x2', mouseX)
       .attr('y1', 0)
       .attr('y2', this.height)
+    return
     let tooltip = document.querySelector(this.interfaceID).querySelector('.chartTooltip')
     let text = ''
     for (let graph of this.graphs) {
