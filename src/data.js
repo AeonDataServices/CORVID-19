@@ -21,6 +21,10 @@ class DataService {
     return this.dataSet
   }
 
+  getDateRange() {
+    return Object.keys(this.dataSet.cases.Denmark).map(d => new Date(d))
+  }
+
   isDataInitialized() {
     return (this.dataInitialized) ? new Promise(resolve => resolve(this.dataSet)) : this.dataInitializationPromise
   }

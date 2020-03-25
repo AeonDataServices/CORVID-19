@@ -12,6 +12,7 @@ export class UIManager {
     this.dataToShow = ['cases']
     this.renderCountryList()
     this.addDefaultCountries()
+    this.initDateRange()
     this.dataSelector = M.FormSelect.init(this.interface.querySelector('select'), {});
     this.interface.querySelector('select').onchange = () => this.changeData()
   }
@@ -34,6 +35,26 @@ export class UIManager {
     )
   }
 
+  initDateRange() {
+    let dateRange = dataService.getDateRange()
+    let slider = noUiSlider.create(this.interface.querySelector('.dateRange-slider'), {
+      start: [0, dateRange.length - 1],
+      connect: true,
+      step: 1,
+      orientation: 'horizontal', // 'horizontal' or 'vertical'
+      range: {
+        'min': 0,
+        'max': (dateRange.length - 1)
+      },
+      format: {to: dateIndex => Util.dateShortString(Math.round(dateIndex)), from: Number}
+    })
+    slider.on('update', this.changeDateRange.bind(this))
+  }
+
+  changeDateRange(value, handle, originalValues) {
+    this.chart.changeDomain(...originalValues.map(val=>Math.round(val)))
+  }
+
   selectCountry(country) {
     this.interface.querySelector('.autocomplete').value = ''
     this.renderedCountries[country] = this.dataToShow
@@ -49,7 +70,6 @@ export class UIManager {
       }
       let countryData = dataService.getDataSet()[data][country]
       let color = Util.colors[this.chart.graphs.length]
-      console.log(Util.convertData(countryData))
       this.chart.addGraph(new D3Graph(label, Util.convertData(countryData), color))
       this.chart.draw()
       let div = document.createElement('div')
