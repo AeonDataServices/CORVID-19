@@ -55,6 +55,7 @@ export class D3Chart {
 
   changeDomain(minIndex, maxIndex) {
     this.domain =  [this.graphs[0].data[minIndex][0], this.graphs[0].data[maxIndex][0]]
+    console.log(this.graphs)
     this.determineScale()
     this.draw()
   }
