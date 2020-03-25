@@ -9,24 +9,29 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   </head>
   <body>
-    <div id="mainDisplay" class="wrapper">
-      <div class="countrySelector">
-        <p><b>Data</b></p>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo center"><i class="fas fa-crow"></i>COVID-19 Dashboard</a>
+      </div>
+    </nav>
+    <div id="mainDisplay" class="row">
+      <div class="countrySelector col l2">
+        <h5>Data</h5>
         <select multiple>
           <option selected value="cases">Cases</option>
           <option value="deaths">Deaths</option>
         </select>
-        <p><b>Countries</b></p>
+        <h5>Countries</h5>
         <div class="input-field">
           <input type="text" class="autocomplete" placeholder="Add countries">
         </div>
         <div class="selectedCountries"></div>
       </div>
-      <div class="container">
-        <svg class="chart"></svg>
-      </div>
-      <div class="infoWrapper">
-        <div class="chartTooltip"></div>
+      <div class="col l10">
+        <h5>Total cases for Norway and Denmark</h5>
+        <div class="chartContainer">
+          <svg class="chart"></svg>
+        </div>
       </div>
     </div>
   </body>

@@ -1,25 +1,17 @@
-html {
-    font-family: 'Roboto', sans-serif;
-  }
+html, body {
+  font-family: 'Roboto', sans-serif;
+}
 
-.wrapper {
-  display:flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 10vh auto;
-}
-.container {
-  width: 50vw;
-  height: 50vh;
-  text-align: center;
-  background-color: white;
-}
 
 .infoWrapper {
   display: flex;
   justify-content: center;
   flex-direction: column;
   background-color: white;
+}
+
+.chartContainer {
+  height: 350px;
 }
 
 .chartTooltip {
