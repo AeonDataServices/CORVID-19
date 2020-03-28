@@ -1,4 +1,5 @@
-import { Util } from './utility.js'
+import { Util } from './util/utility.js'
+import { dataService } from './data.js'
 
 const fixedMargin = {
   top: 40, bottom: 40,
@@ -50,12 +51,15 @@ export class D3Chart {
   removeGraph(country, redraw = false) {
     this.graphs = this.graphs.filter(graph => graph.label !== country)
     console.log(this.graphs, country)
-    if (redraw) this.draw()
+    if (redraw) {
+      this.determineScale()
+      this.draw()
+    }
   }
 
   changeDomain(minIndex, maxIndex) {
-    this.domain =  [this.graphs[0].data[minIndex][0], this.graphs[0].data[maxIndex][0]]
-    console.log(this.graphs)
+    const dateRange = dataService.getDateRange()
+    this.domain =  [dateRange[minIndex], dateRange[maxIndex]]
     this.determineScale()
     this.draw()
   }

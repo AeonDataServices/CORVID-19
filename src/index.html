@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/nouislider.css">
     <script src="https://kit.fontawesome.com/467034ff6c.js" crossorigin="anonymous"></script>
-    <script src="./nouislider.min.js" crossorigin="anonymous"></script>
+    <script src="./util/nouislider.min.js" crossorigin="anonymous"></script>
     <!-- Compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   </head>
@@ -24,10 +24,7 @@
           <option value="deaths">Deaths</option>
         </select>
         <h5>Countries</h5>
-        <div class="input-field">
-          <input type="text" class="autocomplete" placeholder="Add countries">
-        </div>
-        <div class="selectedCountries"></div>
+        <div class="countries-list"></div>
       </div>
       <div class="col l10">
         <div class="chartContainer">
@@ -51,8 +48,5 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script type="module" src="utility.js"></script>
-  <script type="module" src="d3chart.js"></script>
-  <script type="module" src="data.js"></script>
   <script type="module" src="index.js"></script>
 </html>

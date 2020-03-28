@@ -1,4 +1,4 @@
-import { Util } from './utility.js'
+import { Util } from './util/utility.js'
 
 class DataService {
   constructor() {
@@ -6,6 +6,10 @@ class DataService {
     this.dataInitialized = false;
     this.dateRange = []
     this.dataInitializationPromise = this.prepareData()
+  }
+
+  getFocusedCountries() {
+    return ['France','Spain','Germany','Netherlands','Czech Republic','Poland','Italy','United Kingdom','Ireland','Denmark','Norway','Sweden','Finland','United States','Canada']
   }
 
   async prepareData() {
@@ -17,7 +21,10 @@ class DataService {
   }
 
   getDataSet() {
-    return this.dataSet
+    let dataToReturn = {}
+    for (let country of this.getFocusedCountries()) dataToReturn[country] = this.dataSet[country]
+    console.log(dataToReturn);
+    return dataToReturn
   }
 
   getCountryData(countryName) {

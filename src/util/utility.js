@@ -1,4 +1,4 @@
-import { dataService } from './data.js'
+import { dataService } from '../data.js'
 export const Util = {
   colors: [
     '#488f31',
