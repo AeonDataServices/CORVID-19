@@ -54,3 +54,7 @@ html, body {
 .data-table {
   width: 100%;
 }
+
+.countries-list p {
+  margin: 10px 0;
+}
