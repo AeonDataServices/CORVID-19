@@ -6,7 +6,7 @@ import { Util } from './util/utility.js'
 export class UIManager {
   constructor(baseID, countryProvider) {
     this.interface = document.querySelector(baseID)
-    this.chart = new D3Chart(baseID)
+    this.chart = new D3Chart(baseID, this.hoverCallback.bind(this))
     this.domainIndices = []
     this.dataToShow = ['cases']
     countryProvider.subscribe(this.renderedCountriesChanged.bind(this))
@@ -77,6 +77,18 @@ export class UIManager {
     this.drawTable()
   }
 
+  hoverCallback(date) {
+    const dateIndex = dataService.getDateIndex(date)
+    const dateIndexAdjusted = dateIndex - this.domainIndices[0]
+    const tbody = this.interface.querySelector('.data-table tbody')
+    for (const tableChild of tbody.childNodes) tableChild.classList.remove('highlight')
+    const tableIndex = tbody.childNodes.length - dateIndexAdjusted
+    console.log(dataService.getDateIndex(date), this.domainIndices, tbody.childNodes.length, dataService.getDateRange().length)
+    const highlightNode = tbody.childNodes[tableIndex - 1]
+    highlightNode.classList.add('highlight')
+    highlightNode.scrollIntoView(false)
+  }
+
   drawTable() {
     let thead = this.interface.querySelector('.data-table thead tr')
     thead.innerHTML = ''
@@ -87,7 +99,7 @@ export class UIManager {
     let tbody = this.interface.querySelector('.data-table tbody')
     tbody.innerHTML = ''
     let dateRange = dataService.getDateRange()
-    for (let i = dateRange.length - 1; i > 0 ; i--) {
+    for (let i = dateRange.length; i > -1 ; i--) {
       let date = dateRange[i]
       if (i < this.domainIndices[0] || i > this.domainIndices[1]) {continue}
       let row = Util.appendElement(tbody, 'tr', '')
@@ -99,4 +111,5 @@ export class UIManager {
       }
     }
   }
+
 }

@@ -30,12 +30,20 @@ class DataService {
   getCountryData(countryName) {
     let country = this.dataSet[countryName]
     if (typeof country.cases[0][0] === 'string')
-      for (let subset of Object.keys(country)) country[subset] = country[subset].map(d => [new Date(d[0]), d[1]])
+      for (let subset of Object.keys(country)) country[subset] = country[subset].map(d => {
+        const date = new Date(d[0])
+        date.setHours(0,0,0,0)
+        return [date, d[1]]
+      })
     return country
   }
 
   getDateRange() {
     return this.dateRange
+  }
+
+  getDateIndex(searchDate) {
+    return this.dateRange.findIndex(date => date.getTime() === searchDate.getTime())
   }
 
   isDataInitialized() {
