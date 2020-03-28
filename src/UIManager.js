@@ -80,7 +80,7 @@ export class UIManager {
   }
 
   chartChanged() {
-    this.interface.querySelector('.chartTitle').innerHTML = `Showing ${this.dataToShow.join(', ')} for ${this.renderedCountries.join(', ')}`
+    this.interface.querySelector('.chartTitle').innerHTML = `Showing ${this.dataToShow.join(', ')} for:`
     for (const country of this.renderedCountries) this.drawCountry(country)
     this.drawTable()
     this.renderCountriesLegend()
