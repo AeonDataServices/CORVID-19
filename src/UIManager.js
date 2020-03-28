@@ -48,6 +48,14 @@ export class UIManager {
     this.chartChanged()
   }
 
+  renderCountriesLegend() {
+    const countriesLegend = this.interface.querySelector('.chartElement')
+    countriesLegend.innerHTML = ''
+    for (const graph of this.chart.graphs) {
+      Util.appendElement(countriesLegend, 'h6', `<i style="color: ${graph.color}" class="fas fa-square"></i> ${graph.label}`)
+    }
+  }
+
   drawCountry(country) {
     for (let data of this.dataToShow) {
       let label = `${country} (${data})`
@@ -75,6 +83,7 @@ export class UIManager {
     this.interface.querySelector('.chartTitle').innerHTML = `Showing ${this.dataToShow.join(', ')} for ${this.renderedCountries.join(', ')}`
     for (const country of this.renderedCountries) this.drawCountry(country)
     this.drawTable()
+    this.renderCountriesLegend()
   }
 
   hoverCallback(date) {
@@ -83,7 +92,6 @@ export class UIManager {
     const tbody = this.interface.querySelector('.data-table tbody')
     for (const tableChild of tbody.childNodes) tableChild.classList.remove('highlight')
     const tableIndex = tbody.childNodes.length - dateIndexAdjusted
-    console.log(dataService.getDateIndex(date), this.domainIndices, tbody.childNodes.length, dataService.getDateRange().length)
     const highlightNode = tbody.childNodes[tableIndex - 1]
     highlightNode.classList.add('highlight')
     highlightNode.scrollIntoView(false)
