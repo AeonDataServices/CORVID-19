@@ -11,7 +11,7 @@ html, body {
 }
 
 .chartContainer {
-  height: 350px;
+  height: 750px;
   position: relative;
 }
 
@@ -57,4 +57,29 @@ html, body {
 
 .countries-list p {
   margin: 10px 0;
+}
+
+.data-table {
+  margin-top: 40px;
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+.data-table th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-collapse: separate;
+  background-color: white;
+}
+
+.data-table .highlight {
+  background-color: yellow;
+  font-weight: bold;
+  background-color: #ffbfbf;
+}
+
+#mainDisplay td, #mainDisplay th {
+  border: solid 1px gray;
 }

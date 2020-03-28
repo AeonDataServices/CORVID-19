@@ -7,9 +7,10 @@ const fixedMargin = {
 }
 
 export class D3Chart {
-  constructor(interfaceID) {
+  constructor(interfaceID, hoverCallback) {
     window.addEventListener("resize", this.resize.bind(this))
     this.interfaceID = interfaceID
+    this.hoverCallback = hoverCallback
     this.graphs = []
     this.dataCount = 0
     this.xScale = null
@@ -123,6 +124,7 @@ export class D3Chart {
       .attr('x2', mouseX)
       .attr('y1', 0)
       .attr('y2', this.height)
+    this.hoverCallback(Util.roundDate(dateTime))
     return
     let tooltip = document.querySelector(this.interfaceID).querySelector('.chartTooltip')
     let text = ''
