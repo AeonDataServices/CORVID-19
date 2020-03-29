@@ -1,5 +1,5 @@
-import { Util } from './util/utility.js'
-import { dataService } from './data.js'
+import { Util } from '../util/utility.js'
+import { dataService } from '../data.js'
 
 const fixedMargin = {
   top: 40, bottom: 40,
@@ -100,6 +100,9 @@ export class D3Chart {
           .tickValues(this.xScale.ticks(10))
           .tickFormat(d3.timeFormat("%m/%d"))
       )
+      console.log(d3.axisBottom(this.xScale)
+      .tickValues(this.xScale.ticks(10))
+      .tickFormat(d3.timeFormat("%m/%d")))
     this.svg.append("g")
       .attr("id", "y-axis")
       .call(d3.axisLeft(this.yScale))

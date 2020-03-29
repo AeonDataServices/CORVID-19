@@ -1,12 +1,11 @@
-import { dataService } from './data.js'
-import { colors } from './d3graph.js'
-import { Util } from './util/utility.js'
-import { Observable } from './util/observable.js'
+import { dataService } from '../data.js'
+import { Util } from '../util/utility.js'
+import { Observable } from '../util/observable.js'
 
 export class CountrySelector extends Observable {
   constructor(elementID, defaultCountries = ['Denmark', 'Norway']) {
     super()
-    this.listDiv = this.interface = document.querySelector(elementID)
+    this.listDiv = document.querySelector(elementID)
     this.selectedCountries = defaultCountries
     this.renderCountryList()
   }
