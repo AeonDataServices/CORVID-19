@@ -1,4 +1,4 @@
-import { dataService } from '../data.js'
+import { dataService } from '../data/data.js'
 import { Observable } from '../util/observable.js'
 import { Util } from '../util/utility.js'
 

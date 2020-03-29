@@ -1,4 +1,4 @@
-import { Util } from './util/utility.js'
+import { Util } from '../util/utility.js'
 
 class DataService {
   constructor() {

@@ -1,4 +1,4 @@
-import { dataService } from '../data.js'
+import { dataService } from '../data/data.js'
 import { D3Chart } from '../d3rendering/d3chart.js'
 import { D3Graph, colors } from '../d3rendering/d3graph.js'
 import { Util } from '../util/utility.js'
@@ -30,7 +30,7 @@ export class UIManager extends Observable {
   renderedCountriesChanged(newRenderedCountries) {
     const countriesRemoved = this.renderedCountries.filter(country => !newRenderedCountries.includes(country))
     for (const country of countriesRemoved)
-      for (const data of this.dataToShow) this.chart.removeGraph(country, true)
+      for (const data of this.dataToShow) this.chart.removeGraph(data.getLabel(country), true)
     this.renderedCountries = newRenderedCountries
     this.chartChanged()
   }
@@ -44,30 +44,29 @@ export class UIManager extends Observable {
   }
 
   drawCountry(country) {
-    for (let data of this.dataToShow) {
-      let label = `${country}`
+    for (let dataProcessor of this.dataToShow) {
+      let label = dataProcessor.getLabel(country)
       if (this.chart.graphExists(label)) continue
-      let countryData = dataService.getCountryData(country)[data]
+      let countryData = dataProcessor.getData(country)
       let color = Util.colors[this.chart.graphs.length]
       this.chart.addGraph(new D3Graph(label, countryData, color))
       this.chart.draw()
       let div = document.createElement('div')
       div.className = "countryOption"
-      div.innerHTML = `<span class="label"><i class="fas fa-square" style="color:${color}"></i>${label}</span> <span class="delete"><i class="fas fa-minus-square" data-value="${country},${data}"></i></span>`
+      div.innerHTML = `<span class="label"><i class="fas fa-square" style="color:${color}"></i>${label}</span> <span class="delete"><i class="fas fa-minus-square" data-value="${country},${dataProcessor.label}"></i></span>`
       div.querySelector('.delete').onclick = (event => {
         this.removeCountry(...(event.target.getAttribute('data-value')).split(','), event.target)
       })
     }
   }
 
-  changeData(newData) {
+  changeData() {
     this.chart.clear()
-    this.dataToShow = newData
     this.chartChanged()
   }
 
   chartChanged() {
-    this.interface.querySelector('.chartTitle').innerHTML = `${this.dataToShow.join(', ')}`
+    this.interface.querySelector('.chartTitle').innerHTML = `${this.dataToShow.map(proc => proc.label).join(', ')}`
     console.log(this.renderedCountries, this.domainIndices, this.dataToShow)
     for (const country of this.renderedCountries) this.drawCountry(country)
     this.renderCountriesLegend()

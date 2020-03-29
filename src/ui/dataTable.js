@@ -1,8 +1,9 @@
-import { dataService } from '../data.js'
+import { dataService } from '../data/data.js'
 import { D3Chart } from '../d3rendering/d3chart.js'
 import { D3Graph, colors } from '../d3rendering/d3graph.js'
 import { Util } from '../util/utility.js'
 import { DataSelectionProvider } from './dataSelectionProvider.js'
+import { SimpleDataProcessor } from '../data/simpleDataProcessor.js'
 
 export class DataTable {
 	constructor(baseID, countryProvider, domainProvider, highlightProviders) {
@@ -11,7 +12,8 @@ export class DataTable {
 		domainProvider.subscribe(this.changeDomain.bind(this))
 		this.renderedCountries = countryProvider.getSelectedCountries()
 		this.domainIndices = domainProvider.getSelectedDomainIndices()
-		this.renderedData = ['cases']
+		this.renderedData = [new SimpleDataProcessor('cases')]
+		this.renderedDataLabels = this.renderedData.map(d => d.getLabel()).join()
 		for (const provider of highlightProviders) provider.subscribe(this.updateHighlighting.bind(this))
 		this.drawTable()
 	}
@@ -31,7 +33,7 @@ export class DataTable {
 		thead.innerHTML = ''
 		Util.appendElement(thead, 'th', 'Date')
 		for (const country of this.renderedCountries) {
-		for (let data of this.renderedData) Util.appendElement(thead, 'th', `${data}(${country})`)
+			for (let data of this.renderedData) Util.appendElement(thead, 'th', data.getLabel(country))
 		}
 		let tbody = this.interface.querySelector('.data-table tbody')
 		tbody.innerHTML = ''
@@ -43,15 +45,16 @@ export class DataTable {
 			Util.appendElement(row, 'td', `${Util.dateShortStringFromIndex(i)}`)
 			for (let country of this.renderedCountries) {
 				for (let data of this.renderedData) {
-				Util.appendElement(row, 'td', dataService.getCountryData(country)[data][i][1])
+					Util.appendElement(row, 'td', data.getData(country)[i][1])
 				}
 			}
 		}
 	}
 
 	updateHighlighting([date, data]) {
-		console.log(date, data)		
-		if (data.join() !== this.renderedData.join()) {
+		console.log(data.map(d => d.getLabel()).join(), this.renderedDataLabels)		
+		if (data.map(d => d.label).join() !== this.renderedDataLabels) {
+			this.renderedDataLabels = data.map(d => d.getLabel()).join()
 			this.renderedData = data
 			this.drawTable()
 		}
