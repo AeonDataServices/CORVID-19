@@ -101,6 +101,17 @@
               <svg class="chart"></svg>
               <b>With a death rate of <input type="number" id="cases-from-rate-input" class="inline-numeric" value="2" min="0.1" step="0.1"/>%, based on the amount of deaths reported, assumed cases vs reported cases are rendered</b>
             </div>
+            <div id="custom-chart-2" class="chartContainer">
+              <div class="hContainer">
+                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
+                <div class="chartElement">
+                  <h6><i class="fas fa-square"></i> Denmark</h6>
+                  <h6><i class="fas fa-square"></i> Poland</h6>
+                </div>
+              </div>
+              <svg class="chart"></svg>
+              <b>Assuming a <input type="number" id="cases-lag-time-input" class="inline-numeric" value="6" min="1" step="1"/> day delay between infection and a confirmed case, render the infections vs confirmed cases</b>
+            </div>
           </div>
         </div>
         <div class="dateRange-slider"></div>

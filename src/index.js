@@ -10,6 +10,7 @@ import { SimpleDataProcessor } from './data/simpleDataProcessor.js'
 import { CustomLabelDataProcessor } from './data/customLabelDataProcessor.js'
 import { CasesFromDeathsProcessor } from './data/casesFromDeathsProcessor.js'
 import { InputProvider } from './ui/inputProvider.js'
+import { DelayedDetectionCasesProcessor } from './data/delayedDetectionProcessor.js'
 document.addEventListener('DOMContentLoaded', () => {
   dataService.isDataInitialized().then(() => {
     const countrySelector = new CountrySelector('#mainDisplay .countries-list')
@@ -27,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
     const custom1 = new UIManager('#custom-chart-1', countrySelector,new DataSelectionProvider(firstCustomDataProviders), domainProvider)
     new DataTable('.data-table', countrySelector, domainProvider, [mainChart, chart2, chart3, chart4, chart5, custom1])
+    const secondCustomDataProviders = [
+      new DelayedDetectionCasesProcessor(new InputProvider('#cases-lag-time-input')),
+      new CustomLabelDataProcessor('casesPct', 'Confirmed growth rate(%)')
+    ]
+    const custom2 = new UIManager('#custom-chart-2', countrySelector,new DataSelectionProvider(secondCustomDataProviders), domainProvider)
+    new DataTable('.data-table', countrySelector, domainProvider, [mainChart, chart2, chart3, chart4, chart5, custom2])
 
     M.Tabs.init(document.querySelector('.tabs'), {})
   })
