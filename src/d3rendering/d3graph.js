@@ -6,10 +6,11 @@ export const colors = {
 }
 
 export class D3Graph {
-  constructor(label, data, color) {
+  constructor(label, data, color, style = '') {
     this.label = label
     this.data = data
     this.color = color
+    this.style = style
   }
 
   draw(chart) {
@@ -19,6 +20,7 @@ export class D3Graph {
       .attr("stroke", this.color)
       .attr("stroke-width", 1.5)
       .attr("d", chart.line)
+      .style(...this.style)
   }
 
   getDomainData(domain) {
