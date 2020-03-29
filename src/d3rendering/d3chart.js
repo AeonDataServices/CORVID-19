@@ -1,5 +1,5 @@
 import { Util } from '../util/utility.js'
-import { dataService } from '../data.js'
+import { dataService } from '../data/data.js'
 
 const fixedMargin = {
   top: 40, bottom: 40,

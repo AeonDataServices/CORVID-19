@@ -22,7 +22,11 @@
         <div class="countries-list"></div>
       </div>
       <div class="col l6">
-        <div class="chartList">
+        <ul class="tabs">
+          <li class="tab col s4"><a class="active" href="#chartList">Base charts</a></li>
+          <li class="tab col s4"><a href="#customCharts">Advanced/custom charts</a></li>
+        </ul>
+        <div class="chartList" id="chartList">
           <div class="row">
             <div id="chart-total" class="chartContainer">
               <div class="hContainer">
@@ -69,6 +73,33 @@
                   <h6><i class="fas fa-square"></i> Poland</h6>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div id="chart-deathrate" class="chartContainer">
+              <svg class="chart"></svg>
+              <div class="hContainer">
+                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
+                <div class="chartElement">
+                  <h6><i class="fas fa-square"></i> Denmark</h6>
+                  <h6><i class="fas fa-square"></i> Poland</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="customCharts">
+          <div class="row">
+            <div id="custom-chart-1" class="chartContainer">
+              <div class="hContainer">
+                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
+                <div class="chartElement">
+                  <h6><i class="fas fa-square"></i> Denmark</h6>
+                  <h6><i class="fas fa-square"></i> Poland</h6>
+                </div>
+              </div>
+              <svg class="chart"></svg>
+              <b>With a death rate of <input type="number" id="cases-from-rate-input" class="inline-numeric" value="2" min="0.1" step="0.1"/>%, based on the amount of deaths reported, assumed cases vs reported cases are rendered</b>
             </div>
           </div>
         </div>
