@@ -13,7 +13,7 @@ class DataService {
   }
 
   async prepareData() {
-    this.dataSet = await fetch('https://raw.githubusercontent.com/Range-Point/Covid-Data-Pipeline/master/json/full_data.json').then(res => res.json())
+    this.dataSet = await fetch('https://rangepoint.swolsen.com/api/full_data',{method: 'GET'}).then(res => res.json())
     console.log(this.dataSet)
     this.dataInitialized = true;
     this.dateRange = this.getCountryData('Denmark').cases.map(d => d[0])
@@ -33,7 +33,7 @@ class DataService {
       for (let subset of Object.keys(country)) country[subset] = country[subset].map(d => {
         const date = new Date(d[0])
         date.setHours(0,0,0,0)
-        return [date, d[1]]
+        return [date, Math.round(d[1])]
       })
     return country
   }

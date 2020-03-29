@@ -18,24 +18,33 @@
     </nav>
     <div id="mainDisplay" class="row">
       <div class="countrySelector col l2">
-        <h5>Data</h5>
-        <select multiple>
-          <option selected value="cases">Cases</option>
-          <option value="deaths">Deaths</option>
-        </select>
         <h5>Countries</h5>
         <div class="countries-list"></div>
       </div>
       <div class="col l6">
-        <div class="chartContainer">
-          <div class="hContainer">
-            <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
-            <div class="chartElement">
-              <h6><i class="fas fa-square"></i> Denmark</h6>
-              <h6><i class="fas fa-square"></i> Poland</h6>
+        <div class="row">
+          <div class="chartContainer">
+            <div class="hContainer">
+              <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
+              <div class="chartElement">
+                <h6><i class="fas fa-square"></i> Denmark</h6>
+                <h6><i class="fas fa-square"></i> Poland</h6>
+              </div>
+            </div>
+            <svg class="chart"></svg>
+          </div>
+        </div>
+        <div class="row">
+          <div id="secondaryChart" class="chartContainer">
+            <svg class="chart"></svg>
+            <div class="hContainer">
+              <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
+              <div class="chartElement">
+                <h6><i class="fas fa-square"></i> Denmark</h6>
+                <h6><i class="fas fa-square"></i> Poland</h6>
+              </div>
             </div>
           </div>
-          <svg class="chart"></svg>
         </div>
         <div class="dateRange-slider"></div>
       </div>
