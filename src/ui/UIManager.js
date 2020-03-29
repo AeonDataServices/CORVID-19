@@ -30,7 +30,7 @@ export class UIManager extends Observable {
   renderedCountriesChanged(newRenderedCountries) {
     const countriesRemoved = this.renderedCountries.filter(country => !newRenderedCountries.includes(country))
     for (const country of countriesRemoved)
-      for (const data of this.dataToShow) this.chart.removeGraph(`${country} (${data})`, true)
+      for (const data of this.dataToShow) this.chart.removeGraph(country, true)
     this.renderedCountries = newRenderedCountries
     this.chartChanged()
   }
@@ -45,7 +45,7 @@ export class UIManager extends Observable {
 
   drawCountry(country) {
     for (let data of this.dataToShow) {
-      let label = `${country} (${data})`
+      let label = `${country}`
       if (this.chart.graphExists(label)) continue
       let countryData = dataService.getCountryData(country)[data]
       let color = Util.colors[this.chart.graphs.length]
@@ -67,7 +67,7 @@ export class UIManager extends Observable {
   }
 
   chartChanged() {
-    this.interface.querySelector('.chartTitle').innerHTML = `Showing ${this.dataToShow.join(', ')} for:`
+    this.interface.querySelector('.chartTitle').innerHTML = `${this.dataToShow.join(', ')}`
     console.log(this.renderedCountries, this.domainIndices, this.dataToShow)
     for (const country of this.renderedCountries) this.drawCountry(country)
     this.renderCountriesLegend()

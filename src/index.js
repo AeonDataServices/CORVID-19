@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
   dataService.isDataInitialized().then(() => {
     const countrySelector = new CountrySelector('#mainDisplay .countries-list')
     const domainProvider = new DomainProvider('.dateRange-slider')
-    const mainChart = new UIManager('#mainDisplay', countrySelector, new DataSelectionProvider(), domainProvider)
-    const secondChart = new UIManager('#secondaryChart', countrySelector, new DataSelectionProvider(['casesPct']), domainProvider)
-    new DataTable('.data-table', countrySelector, domainProvider, [mainChart, secondChart])
+    const mainChart = new UIManager('#chart-total', countrySelector, new DataSelectionProvider(), domainProvider)
+    const chart2 = new UIManager('#chart-casesPct', countrySelector, new DataSelectionProvider(['casesPct']), domainProvider)
+    const chart3 = new UIManager('#chart-newcases', countrySelector, new DataSelectionProvider(['newCases']), domainProvider)
+    const chart4 = new UIManager('#chart-deaths', countrySelector, new DataSelectionProvider(['deaths']), domainProvider)
+    new DataTable('.data-table', countrySelector, domainProvider, [mainChart, chart2, chart3, chart4])
   })
 })
