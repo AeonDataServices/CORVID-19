@@ -1,4 +1,5 @@
 import { Util } from '../util/utility.js'
+import { Country } from '../models/country.js';
 
 class DataService {
   constructor() {
@@ -13,10 +14,22 @@ class DataService {
   }
 
   async prepareData() {
-    this.dataSet = await fetch('https://rangepoint.swolsen.com/api/full_data',{method: 'GET'}).then(res => res.json())
+    this.dataSet = await fetch('https://aeonds.com/api/full_data',{method: 'GET'}).then(res => res.json())
     this.dataInitialized = true;
     this.dateRange = this.getCountryData('Denmark').cases.map(d => d[0])
+    this.createCountries()
     return this.dataSet
+  }
+
+  createCountries() {
+    this.countries = []
+    for (const country of this.getFocusedCountries()) {
+      this.countries.push(new Country(country, Util.defaultColors[country], this.getCountryData(country)))
+    }
+  }
+
+  getCountries() {
+    return this.countries
   }
 
   getDataSet() {

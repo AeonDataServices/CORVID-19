@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const countrySelector = new CountrySelector('#mainDisplay .countries-list')
     const domainProvider = new DomainProvider('.dateRange-slider')
     const mainChart = new UIManager('#chart-total', countrySelector, new DataSelectionProvider(), domainProvider)
-    const chart2 = new UIManager('#chart-casesPct', countrySelector, new DataSelectionProvider([new CustomLabelDataProcessor('casesPct', 'Growth %')]), domainProvider)
+    /* const chart2 = new UIManager('#chart-casesPct', countrySelector, new DataSelectionProvider([new CustomLabelDataProcessor('casesPct', 'Growth %')]), domainProvider)
     const chart3 = new UIManager('#chart-newcases', countrySelector, new DataSelectionProvider([new CustomLabelDataProcessor('newCases', 'New cases')]), domainProvider)
     const chart4 = new UIManager('#chart-deaths', countrySelector, new DataSelectionProvider([new SimpleDataProcessor('deaths')]), domainProvider)
     const chart5 = new UIManager('#chart-deathrate', countrySelector, new DataSelectionProvider([new CustomLabelDataProcessor('deathRate', 'Death rate(%)')]), domainProvider)
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       new CustomLabelDataProcessor('casesPct', 'Confirmed growth rate(%)')
     ]
     const custom2 = new UIManager('#custom-chart-2', countrySelector,new DataSelectionProvider(secondCustomDataProviders), domainProvider)
-    new DataTable('.data-table', countrySelector, domainProvider, [mainChart, chart2, chart3, chart4, chart5, custom2])
+    new DataTable('.data-table', countrySelector, domainProvider, [mainChart, chart2, chart3, chart4, chart5, custom2]) */
 
     M.Tabs.init(document.querySelector('.tabs'), {})
   })
