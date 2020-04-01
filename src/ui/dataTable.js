@@ -52,7 +52,6 @@ export class DataTable {
 	}
 
 	updateHighlighting([date, data]) {
-		console.log(data.map(d => d.getLabel()).join(), this.renderedDataLabels)		
 		if (data.map(d => d.label).join() !== this.renderedDataLabels) {
 			this.renderedDataLabels = data.map(d => d.getLabel()).join()
 			this.renderedData = data

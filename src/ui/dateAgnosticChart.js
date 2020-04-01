@@ -56,7 +56,6 @@ export class UIManager extends Observable {
 
   chartChanged() {
     this.interface.querySelector('.chartTitle').innerHTML = `${this.dataToShow.map(proc => proc.label).join(', ')}`
-    console.log(this.renderedCountries, this.domainIndices, this.dataToShow)
     for (const country of this.renderedCountries) this.drawCountry(country)
     this.renderCountriesLegend()
   }

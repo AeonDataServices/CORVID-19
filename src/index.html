@@ -9,6 +9,11 @@
     <script src="./util/nouislider.min.js" crossorigin="anonymous"></script>
     <!-- Compiled and minified CSS -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
   </head>
   <body>
     <nav>
@@ -17,16 +22,27 @@
       </div>
     </nav>
     <div id="mainDisplay" class="row">
-      <div class="countrySelector col l2">
-        <h5>Countries</h5>
-        <div class="countries-list"></div>
+      <div class="countrySelector col l2 side-display">
+       <!--  <div class="panel-header">
+          <span>Country selector</span>
+          <span class="chevron"><i class="fas fa-chevron-left"></i></span>
+        </div> -->
+        <div class="sidebar-content">
+          <h5>Countries</h5>
+          <div class="countries-list"></div>
+          <hr>
+          <h5><i class="fas fa-info-circle"></i> Information</h5>
+          <p>This dashboard uses <a href="https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases" target="_blank">ECDC Datasets</a></p>
+          <p>We pull the datasets from the ECDC on an hourly basis</p>
+        </div>
       </div>
-      <div class="col l6">
+      <div class="col l7 center-display">
         <ul class="tabs">
           <li class="tab col s4"><a class="active" href="#chartList">Base charts</a></li>
           <li class="tab col s4"><a href="#customCharts">Advanced/custom charts</a></li>
+          <li class="tab col s4"><a href="#dataTables">Data Tables</a></li>
         </ul>
-        <div class="chartList" id="chartList">
+        <div data-simplebar class="chartList" id="chartList">
           <div class="row">
             <div id="chart-total" class="chartContainer">
               <div class="hContainer">
@@ -115,14 +131,13 @@
             </div>
           </div>
         </div>
-        <div id="dateAgnosticCharts">
-          <div class="row">
-            test
-          </div>
-        </div>
         <div class="dateRange-slider"></div>
       </div>
-      <div class="col l4">
+      <div class="col l3 side-display">
+        <!-- <div class="panel-header">
+          <span class="chevron"><i class="fas fa-chevron-right"></i></span>
+          <span>Chart data</span>
+        </div> -->
         <div class="data-table">
           <table>
             <thead>

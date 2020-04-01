@@ -1,7 +1,11 @@
 html, body {
   font-family: 'Roboto', sans-serif;
+  height: 100%;
 }
 
+body nav {
+  box-shadow: none;
+}
 
 .infoWrapper {
   display: flex;
@@ -40,7 +44,6 @@ html, body {
 .countrySelector {
   padding: 10px 20px;
   width: 250px;
-  margin-top:30px;
 }
 
 .countryOption {
@@ -55,18 +58,14 @@ html, body {
   margin: 0 35px;
 }
 
-.data-table {
-  width: 100%;
-}
-
 .countries-list p {
   margin: 10px 0;
 }
 
 .data-table {
-  margin-top: 40px;
-  height: 80vh;
+  height: 85vh;
   overflow-y: scroll;
+  width: 100%;
 }
 
 .data-table th {
@@ -110,4 +109,52 @@ html, body {
 
 #chartList, #customCharts {
   padding: 0 14px;
+}
+
+#chartList::-webkit-scrollbar {
+  display: none;
+}
+
+.side-display {
+  border-left: solid 1px gray;
+  border-right: solid 1px gray;
+  height: 100%;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px gray;
+  padding: 5px 15px;
+  font-weight: bold;
+}
+
+#mainDisplay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 64px;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+#mainDisplay.row .col {
+  padding: 0px;
+}
+
+.sidebar-content {
+  padding: 0 5px;
+}
+
+.sidebar-content {
+  padding: 0 5px;
+}
+
+.panel-header .chevron {
+  width: 24px;
+  border: solid 1px gray;
+  border-radius: 5px;
+  text-align: center;
 }
