@@ -27,7 +27,6 @@ export class DelayedDetectionCasesProcessor extends Observable {
 			}
 			i++
 		}
-		console.log(data)		
 		return data
 	}
 

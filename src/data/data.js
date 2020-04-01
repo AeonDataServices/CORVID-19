@@ -14,7 +14,6 @@ class DataService {
 
   async prepareData() {
     this.dataSet = await fetch('https://rangepoint.swolsen.com/api/full_data',{method: 'GET'}).then(res => res.json())
-    console.log(this.dataSet)
     this.dataInitialized = true;
     this.dateRange = this.getCountryData('Denmark').cases.map(d => d[0])
     return this.dataSet
@@ -23,7 +22,6 @@ class DataService {
   getDataSet() {
     let dataToReturn = {}
     for (let country of this.getFocusedCountries()) dataToReturn[country] = this.dataSet[country]
-    console.log(dataToReturn);
     return dataToReturn
   }
 

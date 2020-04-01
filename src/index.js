@@ -11,6 +11,7 @@ import { CustomLabelDataProcessor } from './data/customLabelDataProcessor.js'
 import { CasesFromDeathsProcessor } from './data/casesFromDeathsProcessor.js'
 import { InputProvider } from './ui/inputProvider.js'
 import { DelayedDetectionCasesProcessor } from './data/delayedDetectionProcessor.js'
+import { WorldMap } from './d3rendering/worldmap.js'
 document.addEventListener('DOMContentLoaded', () => {
   dataService.isDataInitialized().then(() => {
     const countrySelector = new CountrySelector('#mainDisplay .countries-list')

@@ -27,7 +27,6 @@ export class D3Chart {
     this.margin = fixedMargin
     this.width = this.canvas.parentElement.offsetWidth - this.margin.left - this.margin.right
     this.height = this.canvas.parentElement.offsetHeight - this.margin.top - this.margin.bottom
-    console.log(this.canvas.parentElement.offsetHeight, this.margin.top, this.margin.bottom)
   }
 
   clear() {
@@ -51,7 +50,6 @@ export class D3Chart {
 
   removeGraph(country, redraw = false) {
     this.graphs = this.graphs.filter(graph => graph.label !== country)
-    console.log(this.graphs, country)
     if (redraw) {
       this.determineScale()
       this.draw()
@@ -100,9 +98,6 @@ export class D3Chart {
           .tickValues(this.xScale.ticks(10))
           .tickFormat(d3.timeFormat("%m/%d"))
       )
-      console.log(d3.axisBottom(this.xScale)
-      .tickValues(this.xScale.ticks(10))
-      .tickFormat(d3.timeFormat("%m/%d")))
     this.svg.append("g")
       .attr("id", "y-axis")
       .call(d3.axisLeft(this.yScale))
