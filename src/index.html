@@ -4,11 +4,16 @@
     <meta charset="utf-8">
     <title>COVID-19</title>
     <link rel="stylesheet" href="./styles/index.css">
-    <link rel="stylesheet" href="./styles/nouislider.css">
+    <!-- font-awesome -->
     <script src="https://kit.fontawesome.com/467034ff6c.js" crossorigin="anonymous"></script>
+    <!-- domain slider -->
+    <link rel="stylesheet" href="./styles/nouislider.css">
     <script src="./util/nouislider.min.js" crossorigin="anonymous"></script>
-    <!-- Compiled and minified CSS -->
+    <!-- google charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- materialize -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <!-- simplebar -->
    <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"
@@ -67,69 +72,6 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div id="chart-newcases" class="chartContainer">
-              <svg class="chart"></svg>
-              <div class="hContainer">
-                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
-                <div class="chartElement">
-                  <h6><i class="fas fa-square"></i> Denmark</h6>
-                  <h6><i class="fas fa-square"></i> Poland</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div id="chart-deaths" class="chartContainer">
-              <svg class="chart"></svg>
-              <div class="hContainer">
-                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
-                <div class="chartElement">
-                  <h6><i class="fas fa-square"></i> Denmark</h6>
-                  <h6><i class="fas fa-square"></i> Poland</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div id="chart-deathrate" class="chartContainer">
-              <svg class="chart"></svg>
-              <div class="hContainer">
-                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
-                <div class="chartElement">
-                  <h6><i class="fas fa-square"></i> Denmark</h6>
-                  <h6><i class="fas fa-square"></i> Poland</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="customCharts">
-          <div class="row">
-            <div id="custom-chart-1" class="chartContainer">
-              <p><b>With a death rate of <input type="number" id="cases-from-rate-input" class="inline-numeric" value="2" min="0.1" step="0.1"/>%, based on the amount of deaths reported, assumed cases vs reported cases are rendered</b></p>
-              <div class="hContainer">
-                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
-                <div class="chartElement">
-                  <h6><i class="fas fa-square"></i> Denmark</h6>
-                  <h6><i class="fas fa-square"></i> Poland</h6>
-                </div>
-              </div>
-              <svg class="chart"></svg>
-            </div>
-            <div id="custom-chart-2" class="chartContainer margin-top">
-              <hr>
-              <p><b>Assuming a <input type="number" id="cases-lag-time-input" class="inline-numeric" value="6" min="1" step="1"/> day delay between infection and a confirmed case, render the infections vs confirmed cases</b></p>
-              <div class="hContainer">
-                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
-                <div class="chartElement">
-                  <h6><i class="fas fa-square"></i> Denmark</h6>
-                  <h6><i class="fas fa-square"></i> Poland</h6>
-                </div>
-              </div>
-              <svg class="chart"></svg>
-            </div>
-          </div>
         </div>
         <div class="dateRange-slider"></div>
       </div>
@@ -151,8 +93,9 @@
       </div>
     </div>
   </body>
-  <!-- Compiled and minified JavaScript -->
+  <!-- materialize js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- d3 -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script type="module" src="index.js"></script>
 </html>

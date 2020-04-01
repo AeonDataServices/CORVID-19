@@ -3,6 +3,19 @@ export class Country {
         this.name = name
         this.color = color
         this.baseData = data
+        this.processData()
+    }
+
+    processData() {
+        const totals = new google.visualization.DataTable()
+        totals.addColumn('datetime', 'Date')
+        totals.addColumn('number', this.name)
+        totals.addRows(this.baseData.cases)
+        this.totals = totals
+    }
+
+    getTotalsByDate() {
+        return this.totals
     }
 
     getName() {
@@ -11,5 +24,9 @@ export class Country {
 
     getColor() {
         return this.color
+    }
+
+    getDataTable() {
+
     }
 }

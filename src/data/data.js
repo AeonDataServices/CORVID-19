@@ -14,7 +14,7 @@ class DataService {
   }
 
   async prepareData() {
-    this.dataSet = await fetch('https://aeonds.com/api/full_data',{method: 'GET'}).then(res => res.json())
+    this.dataSet = await fetch('https://www.aeonds.com/api/full_data',{method: 'GET'}).then(res => res.json())
     this.dataInitialized = true;
     this.dateRange = this.getCountryData('Denmark').cases.map(d => d[0])
     this.createCountries()
