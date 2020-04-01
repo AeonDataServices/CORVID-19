@@ -11,17 +11,17 @@ export class CountrySelector extends Observable {
   }
 
   renderCountryList() {
-    const countries = dataService.getFocusedCountries()
+    const countries = dataService.getCountries()
     for (const country of countries) {
       const section = Util.appendElement(this.listDiv, 'p', '')
       const label = Util.appendElement(section, 'label', '')
       const input = Util.appendElement(label, 'input', '')
       input.addEventListener('change', this.changeSelectionEvent.bind(this))
       input.setAttribute('type', 'checkbox')
-      if (this.isCountrySelected(country)) input.setAttribute('checked', 'checked')
+      if (this.isCountrySelected(country.getName())) input.setAttribute('checked', 'checked')
       input.setAttribute('class', 'filled-in')
-      input.setAttribute('data-country', country)
-      Util.appendElement(label, 'span', country)
+      input.setAttribute('data-country', country.getName())
+      Util.appendElement(label, 'span', `<i style="color: ${country.getColor()}" class="fas fa-square"></i> ${country.getName()}`)
     }
   }
 
