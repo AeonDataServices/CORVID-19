@@ -59,6 +59,8 @@ body nav {
 
 .countries-list p {
   margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .data-table {
