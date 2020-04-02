@@ -50,7 +50,6 @@ export class Country {
     getNewDeathsByDate() {
         return this.newDeaths
     }
-
     getOutbreakDayProgression() {
         
     }

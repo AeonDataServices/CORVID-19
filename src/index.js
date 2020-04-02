@@ -18,11 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       new GoogleChart('#chart-growth-rate', countrySelector, 'Growth rate','getGrowthRateByDate', {
         vAxis:
         {
-            logScale: true,
-            viewWindow: {
-              min: 0,
-              max: 50
-            }
+            logScale: true
         }
       })
       new GoogleChart('#chart-death-rate', countrySelector, 'Death rate','getDeathRateByDate')
