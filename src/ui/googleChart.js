@@ -21,7 +21,6 @@ export class GoogleChart {
         for (let index = 1; index < this.countries.length; index++) {
             const firstTable = (index == 1) ? this.countries[0][this.dataFunction]() : joinedTable
             const secondTable = this.countries[index][this.dataFunction]()
-            console.log(this.dataFunction)
             indicesList.push(index)
             joinedTable = google.visualization.data.join(
                 firstTable,

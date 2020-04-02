@@ -7,7 +7,17 @@ export class Country {
     }
 
     processData() {
+        this.getOutbreakStartIndex()
         const dataToExtract = Object.keys(this.baseData)
+        let outbreakStartTable = []
+        for (let index = 0; index < this.baseData.casesPct.length; index++) {
+            outbreakStartTable.push((index < this.outbreakStartIndex) ? 0 : index - this.outbreakStartIndex)
+        }
+        const processedData = this.baseData.cases.map((data, i) => [data[0], outbreakStartTable[i]])
+        this.dayReference = new google.visualization.DataTable()
+        this.dayReference.addColumn('datetime', 'Date')
+        this.dayReference.addColumn('number', 'Day')
+        this.dayReference.addRows(processedData)
         for (const dataName of dataToExtract) {
             const data = new google.visualization.DataTable()
             data.addColumn('datetime', 'Date')
@@ -15,7 +25,11 @@ export class Country {
             data.addRows(this.baseData[dataName])
             this[dataName] = data
         }
-        console.log(this)
+    }
+
+    getOutbreakStartIndex() {
+        const index = this.baseData.casesPct.findIndex(kv => kv[1] > 10)
+        this.outbreakStartIndex = index
     }
 
     getTotalCasesByDate() {
@@ -37,12 +51,20 @@ export class Country {
         return this.newDeaths
     }
 
+    getOutbreakDayProgression() {
+        
+    }
+
     getName() {
         return this.name
     }
 
     getColor() {
         return this.color
+    }
+
+    setColor(color) {
+        this.color = color
     }
 
     getDataTable() {

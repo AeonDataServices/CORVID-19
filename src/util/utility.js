@@ -27,6 +27,24 @@ export const Util = {
     'Canada': '#00cfe3',
     'China': '#665191',
   },
+  defaultColorsArray: [
+    '#003f5c',
+    '#58508d',
+    '#ddd47a',
+    '#ff6361',
+    '#ffa600',
+    '#488f31',
+    '#ffe792',
+    '#de425b',
+    '#ec6758',
+    '#bc5090',
+    '#f95d6a',
+    '#255e7e',
+    '#005de8',
+    '#f5bc6b',
+    '#00cfe3',
+    '#665191'
+  ],
   convertData: data => Object.keys(data).map(key => [new Date(key), data[key]]),
   roundDate: date => {
     if (date.getHours() >= 12) date.setDate(date.getDate() + 1)
@@ -42,5 +60,8 @@ export const Util = {
     target.appendChild(element)
     element.innerHTML = content
     return element
+  },
+  colorPicker: (CountrySelector, event) => {
+    console.log(CountrySelector, event)
   }
 }
