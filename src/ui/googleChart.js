@@ -15,23 +15,27 @@ export class GoogleChart {
     }
 
     processData() {
-        let joinedTable;
-        this.tableToRender = null
-        const indicesList = []
-        for (let index = 1; index < this.countries.length; index++) {
-            const firstTable = (index == 1) ? this.countries[0][this.dataFunction]() : joinedTable
-            const secondTable = this.countries[index][this.dataFunction]()
-            indicesList.push(index)
-            joinedTable = google.visualization.data.join(
-                firstTable,
-                secondTable,
-                'inner',
-                [[0,0]],
-                indicesList,
-                [1]
-            )  
+        if (this.countries.length === 1) {
+            this.tableToRender = this.countries[0][this.dataFunction]()
+        } else {
+            let joinedTable;
+            this.tableToRender = null
+            const indicesList = []
+            for (let index = 1; index < this.countries.length; index++) {
+                const firstTable = (index == 1) ? this.countries[0][this.dataFunction]() : joinedTable
+                const secondTable = this.countries[index][this.dataFunction]()
+                indicesList.push(index)
+                joinedTable = google.visualization.data.join(
+                    firstTable,
+                    secondTable,
+                    'inner',
+                    [[0,0]],
+                    indicesList,
+                    [1]
+                )  
+            }
+            this.tableToRender = joinedTable
         }
-        this.tableToRender = joinedTable
         const series = {}
         this.countries.forEach((country, index) => series[index] = {color: country.getColor()})
         this.options = {
