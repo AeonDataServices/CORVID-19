@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       })
       new GoogleChart('#chart-death-rate', countrySelector, 'Death rate','getDeathRateByDate')
+      
+      const mainMap = new google.visualization.GeoChart(document.getElementById('mainMap'))
+      mainMap.draw(dataService.getAllCountriesInfectionDensity(), {
+        colorAxis: {colors: ['white', 'red']},
+        datalessRegionColor: '#adadad',
+        legend: 'none'
+      })
+
       M.Tabs.init(document.querySelector('.tabs'), {})
     })
   })

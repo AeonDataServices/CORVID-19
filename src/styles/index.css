@@ -159,3 +159,10 @@ body nav {
   border-radius: 5px;
   text-align: center;
 }
+
+#worldMap {
+  padding:0 40px;
+}
+#mainMap {
+  max-height: 80vh;
+}
