@@ -7,15 +7,34 @@ export class Country {
     }
 
     processData() {
-        const totals = new google.visualization.DataTable()
-        totals.addColumn('datetime', 'Date')
-        totals.addColumn('number', this.name)
-        totals.addRows(this.baseData.cases)
-        this.totals = totals
+        const dataToExtract = Object.keys(this.baseData)
+        for (const dataName of dataToExtract) {
+            const data = new google.visualization.DataTable()
+            data.addColumn('datetime', 'Date')
+            data.addColumn('number', this.name)
+            data.addRows(this.baseData[dataName])
+            this[dataName] = data
+        }
+        console.log(this)
     }
 
-    getTotalsByDate() {
-        return this.totals
+    getTotalCasesByDate() {
+        return this.cases
+    }
+    getGrowthRateByDate() {
+        return this.casesPct
+    }
+    getDeathRateByDate() {
+        return this.deathRate
+    }
+    getDeathsByDate() {
+        return this.deaths
+    }
+    getNewCasesByDate() {
+        return this.newCases
+    }
+    getNewDeathsByDate() {
+        return this.newDeaths
     }
 
     getName() {

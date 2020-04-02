@@ -14,9 +14,8 @@ body nav {
   background-color: white;
 }
 
-.chartContainer {
+.chart {
   height: 40vh;
-  position: relative;
 }
 
 .chartContainer.margin-top {

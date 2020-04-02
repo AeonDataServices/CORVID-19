@@ -41,55 +41,19 @@
           <p>We pull the datasets from the ECDC on an hourly basis</p>
         </div>
       </div>
-      <div class="col l7 center-display">
+      <div class="col l10 center-display">
         <ul class="tabs">
           <li class="tab col s4"><a class="active" href="#chartList">Base charts</a></li>
           <li class="tab col s4"><a href="#customCharts">Advanced/custom charts</a></li>
           <li class="tab col s4"><a href="#dataTables">Data Tables</a></li>
         </ul>
         <div data-simplebar class="chartList" id="chartList">
-          <div class="row">
-            <div id="chart-total" class="chartContainer">
-              <div class="hContainer">
-                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
-                <div class="chartElement">
-                  <h6><i class="fas fa-square"></i> Denmark</h6>
-                  <h6><i class="fas fa-square"></i> Poland</h6>
-                </div>
-              </div>
-              <svg class="chart"></svg>
-            </div>
-          </div>
-          <div class="row">
-            <div id="chart-casesPct" class="chartContainer">
-              <svg class="chart"></svg>
-              <div class="hContainer">
-                <h5 class="chartTitle">Showing cases for Denmark, Norway</h5>
-                <div class="chartElement">
-                  <h6><i class="fas fa-square"></i> Denmark</h6>
-                  <h6><i class="fas fa-square"></i> Poland</h6>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="row chart" id="chart-total-cases"></div>
+          <div class="row chart" id="chart-new-cases"></div>
+          <div class="row chart" id="chart-growth-rate"></div>
+          <div class="row chart" id="chart-death-rate"></div>
         </div>
         <div class="dateRange-slider"></div>
-      </div>
-      <div class="col l3 side-display">
-        <!-- <div class="panel-header">
-          <span class="chevron"><i class="fas fa-chevron-right"></i></span>
-          <span>Chart data</span>
-        </div> -->
-        <div class="data-table">
-          <table>
-            <thead>
-              <tr class="header">
-              </tr>
-            </thead>
-            <tbody class="body">
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   </body>

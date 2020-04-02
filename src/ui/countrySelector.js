@@ -3,7 +3,7 @@ import { Util } from '../util/utility.js'
 import { Observable } from '../util/observable.js'
 
 export class CountrySelector extends Observable {
-  constructor(elementID, defaultCountries = ['Denmark', 'Norway']) {
+  constructor(elementID, defaultCountries = [dataService.getCountries()[9], dataService.getCountries()[10]]) {
     super()
     this.listDiv = document.querySelector(elementID)
     this.selectedCountries = defaultCountries
@@ -30,21 +30,21 @@ export class CountrySelector extends Observable {
     this.changeSelection(country)
   }
 
-  changeSelection(country) {
-    const countryIndex = this.selectedCountries.indexOf(country)
+  changeSelection(countryName) {
+    const countryIndex = this.selectedCountries.findIndex(country => country.getName() === countryName)
     if (countryIndex > -1) {
       this.selectedCountries.splice(countryIndex, 1);
     } else {
-      this.selectedCountries.push(country)
+      this.selectedCountries.push(dataService.getCountry(countryName))
     }
     this.notifyObservers([...this.selectedCountries])
   }
 
   getSelectedCountries() {
-    return [...this.selectedCountries]
+    return this.selectedCountries
   }
 
-  isCountrySelected(country) {
-    return (this.selectedCountries.indexOf(country) > -1)
+  isCountrySelected(countryName) {
+    return (this.selectedCountries.findIndex(country => country.getName() === countryName) > -1)
   }
 }
