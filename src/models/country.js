@@ -50,8 +50,8 @@ export class Country {
     getNewDeathsByDate() {
         return this.newDeaths
     }
-    getOutbreakDayProgression() {
-        
+    getTotalCases() {
+        return this.baseData.cases[this.baseData.cases.length - 1][1]
     }
 
     getName() {
@@ -64,9 +64,5 @@ export class Country {
 
     setColor(color) {
         this.color = color
-    }
-
-    getDataTable() {
-
     }
 }

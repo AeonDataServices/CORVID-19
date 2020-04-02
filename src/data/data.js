@@ -18,6 +18,12 @@ class DataService {
     this.dataInitialized = true;
     this.dateRange = this.getCountryData('Denmark').cases.map(d => d[0])
     this.createCountries()
+    const countriesAPIResponse = await fetch('https://restcountries.eu/rest/v2/alpha?codes=FR;ESP;DE;NL;CZ;PL;IT;GB;IRL;DK;NO;SE;FI;US;CA;CN',{method: 'GET'}).then(res => res.json())
+    countriesAPIResponse.find(country => country.alpha2Code === 'GB').name = 'United Kingdom'
+    countriesAPIResponse.find(country => country.alpha2Code === 'US').name = 'United States'
+    for (const country of countriesAPIResponse) {
+      this.getCountry(country.name).data = country
+    }
     return this.dataSet
   }
 
@@ -63,6 +69,17 @@ class DataService {
 
   isDataInitialized() {
     return (this.dataInitialized) ? new Promise(resolve => resolve(this.dataSet)) : this.dataInitializationPromise
+  }
+
+  getAllCountriesInfectionDensity() {
+    const data = [['Country', 'Cases/100k']]
+    for (const country of this.countries) {
+      const pop100k =  (country.data.population) / 100000
+      const infDensity = Math.round(country.getTotalCases() / pop100k)
+      console.log(country.data.alpha2Code, infDensity)
+      data.push([country.data.alpha2Code, infDensity])
+    }
+    return google.visualization.arrayToDataTable(data)
   }
 }
 
