@@ -21,12 +21,7 @@ export class DomainProvider extends Observable {
 		  'min': 0,
 		  'max': (dateRange.length - 1)
 		},
-		format: {to: dateIndex => Util.dateShortStringFromIndex(Math.round(dateIndex)), from: Number},
-		pips: {
-			mode: 'steps',
-			density: 1,
-			format: {to: dateIndex => Util.dateShortStringFromIndex(Math.round(dateIndex)), from: Number},
-		}
+		format: {to: dateIndex => Util.dateShortStringFromIndex(Math.round(dateIndex)), from: Number}
 	  })
 	  this.domainIndices = [0, dateRange.length - 1]
 	  slider.on('update', this.changeDateRange.bind(this))
