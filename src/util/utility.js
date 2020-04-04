@@ -53,14 +53,11 @@ export const Util = {
     date.setHours(0,0,0,0)
     return date
   },
-  dateShortStringFromIndex: (dateIndex) => {
-    let dateRange = dataService.getDateRange()
-    return `${dateRange[dateIndex].getMonth() + 1}/${dateRange[dateIndex].getDate()}`
-  },
-  appendElement: (target, type, content) => {
+  appendElement: (target, type, content, cssClass) => {
     let element = document.createElement(type)
     target.appendChild(element)
     element.innerHTML = content
+    if (cssClass) element.setAttribute('class', cssClass)
     return element
   },
   colorPicker: (CountrySelector, event) => {

@@ -1,6 +1,7 @@
 html, body {
   font-family: 'Roboto', sans-serif;
   height: 100%;
+  overflow: hidden;
 }
 
 body nav {
@@ -53,10 +54,6 @@ body nav {
   padding: 2px 5px;
 }
 
-.dateRange-slider {
-  margin: 0 35px;
-}
-
 .countries-list p {
   margin: 10px 0;
   display: flex;
@@ -86,18 +83,17 @@ body nav {
 
 #mainDisplay td, #mainDisplay th {
   border: solid 1px gray;
+  overflow: hidden;
+}
+
+.center-display {
+  padding-top: 48px;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .chartList {
-  overflow-y: scroll;
   overflow-x: hidden;
-  height: 80vh;
-}
-
-#customCharts {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 80vh;
 }
 
 .tabs {
@@ -106,14 +102,6 @@ body nav {
 
 .inline-numeric {
   width:40px !important;
-}
-
-#chartList, #customCharts {
-  padding: 0 14px;
-}
-
-#chartList::-webkit-scrollbar {
-  display: none;
 }
 
 .side-display {
@@ -135,7 +123,6 @@ body nav {
   top: 0;
   left: 0;
   padding-top: 64px;
-  height: 100%;
   width: 100%;
   margin-bottom: 0;
   overflow: hidden;
@@ -158,11 +145,4 @@ body nav {
   border: solid 1px gray;
   border-radius: 5px;
   text-align: center;
-}
-
-#worldMap {
-  padding:0 40px;
-}
-#mainMap {
-  max-height: 80vh;
 }
