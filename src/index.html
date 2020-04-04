@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>COVID-19</title>
     <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/loadingScreen.css">
     <!-- font-awesome -->
     <script src="https://kit.fontawesome.com/467034ff6c.js" crossorigin="anonymous"></script>
     <!-- domain slider -->
@@ -50,8 +51,15 @@
           <li class="tab col s3"><a href="#customCharts">Advanced/custom charts</a></li>
           <li class="tab col s3"><a href="#dataTables">Data Tables</a></li>
         </ul>
+        <div id="loadingPlaceholder" class="row">
+          <h4>Loading content</h4>
+          <p class="updates"></p>
+          <div class="progress">
+            <div class="indeterminate"></div>
+          </div>
+        </div>
         <div data-simplebar class="chartList" id="worldMap">
-          <h5>Cases of coronavirus per 100k population</h5>
+          <h5>Average rate of new cases(%) the past 5 days</h5>
           <div id="mainMap"></div>
         </div>
         <div data-simplebar class="chartList" id="chartList">
@@ -61,7 +69,11 @@
           <div class="row chart" id="chart-death-rate"></div>
         </div>
         <div data-simplebar class="chartList" id="customCharts"><h6>coming soon</h6></div>
-        <div data-simplebar class="chartList" id="dataTables"><h6>coming soon</h6></div>
+        <div data-simplebar class="chartList" id="dataTables">
+          <table>
+
+          </table>
+        </div>
         <div class="dateRange-slider"></div>
       </div>
     </div>

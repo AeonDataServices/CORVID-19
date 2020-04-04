@@ -1,0 +1,22 @@
+#loadingPlaceholder {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+#loadingPlaceholder .updates {
+	height: 50%;
+	width: 50%;
+	text-align: left;
+	overflow-y: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+#loadingPlaceholder .progress {
+	width: 50%;
+}

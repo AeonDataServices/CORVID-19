@@ -26,6 +26,7 @@ export const Util = {
     'United States': '#f5bc6b',
     'Canada': '#00cfe3',
     'China': '#665191',
+    'India': '#255e7e',
   },
   defaultColorsArray: [
     '#003f5c',
@@ -43,7 +44,8 @@ export const Util = {
     '#005de8',
     '#f5bc6b',
     '#00cfe3',
-    '#665191'
+    '#665191',
+    '#255e7e',
   ],
   convertData: data => Object.keys(data).map(key => [new Date(key), data[key]]),
   roundDate: date => {
@@ -63,5 +65,12 @@ export const Util = {
   },
   colorPicker: (CountrySelector, event) => {
     console.log(CountrySelector, event)
+  },
+  gerateDataTable: (columns, rows) => {
+    const dataTable = new google.visualization.DataTable()
+    for (const column of columns)
+      dataTable.addColumn(...column)
+    dataTable.addRows(rows)
+    return dataTable
   }
 }
