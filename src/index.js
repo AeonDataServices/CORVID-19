@@ -3,6 +3,8 @@ import { CountrySelector } from './ui/countrySelector.js'
 import { GoogleChart } from './ui/googleChart.js'
 import { loadingScreen } from './ui/loadingScreen.js'
 import { Dashboard } from './ui/dashBoard.js'
+import { PageManager } from './ui/pagination.js'
+import { BubbleChart } from './ui/bubbleChart.js'
 
 loadingScreen.startLoading()
 
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		  }
 		})
 		new GoogleChart('#baseCharts', countrySelector, 'Death rate','getDeathRateByDate')
-
-    M.Tabs.init(document.querySelector('.tabs'), {})
+		new BubbleChart('#baseCharts', countrySelector, '')
+		new PageManager('#nav-mobile')
   })
 })

@@ -9,7 +9,7 @@ export class GoogleChart {
         this.logarithmic = false
 
         const container = document.querySelector(elementID)
-        this.element = Util.appendElement(container, 'div', '', 'row chartWrapper')
+        this.element = Util.appendElement(container, 'div', '', 'chartWrapper col l6 s12')
         this.chartElement = Util.appendElement(this.element, 'div', '', 'chart')
         this.initModifiers()
 
@@ -58,8 +58,10 @@ export class GoogleChart {
         this.countries.forEach((country, index) => series[index] = {color: country.getColor()})
         this.options = {
             title: this.chartTitle,
-            legend: {position: 'right'},
-            series: series
+            //legend: {position: 'right'},
+            legend: 'none',
+            series: series,
+            chartArea: {left: 50, top: 40, width: '90%', height: '80%'}
         }
         for (const key of Object.keys(this.additionalOptions)) this.options[key] = this.additionalOptions[key]
     }
