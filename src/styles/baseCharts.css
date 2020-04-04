@@ -1,0 +1,9 @@
+.chartWrapper {
+	position: relative;
+}
+.chartWrapper .switch {
+	position: absolute;
+	left: 400px;
+	top:25px;
+	z-index: 5;
+}

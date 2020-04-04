@@ -1,7 +1,6 @@
 import { Util } from '../util/utility.js'
 import { Country } from '../models/country.js';
 import { loadingScreen } from '../ui/loadingScreen.js'
-import { env } from '../.env.js';
 
 class DataService {
   constructor() {
@@ -34,7 +33,7 @@ class DataService {
 
   async prepareData() {
     loadingScreen.updateText('Loading Google Charts')
-    google.charts.load('current', {'packages':['corechart', 'geochart'], 'mapsAPIKey': 'AIzaSyBubQskFIfulv53q2el9iDI41xfwegzmSI', other_params: `key=${env.mapsAPI}`});
+    google.charts.load('current', {'packages':['corechart', 'geochart']});
     await google.charts.setOnLoadCallback(() => {})
     loadingScreen.updateText('Google Charts loaded')
     loadingScreen.updateText('Getting ECDC data')
@@ -56,8 +55,8 @@ class DataService {
   createCountries() {
     this.countries = []
     for (const country of this.getFocusedCountries()) {
-      this.countries.push(new Country(country, Util.defaultColors[country], this.getCountryData(country)))
       loadingScreen.updateText(`Processing data for ${country}`)
+      this.countries.push(new Country(country, Util.defaultColors[country], this.getCountryData(country)))
     }
   }
 
@@ -98,7 +97,8 @@ class DataService {
   getAllCountriesTable(title, dataFunction) {
     const data = [['Country', title]]
     for (const country of this.countries) {
-      data.push([country.miscData.alpha2code, country[dataFunction]()])
+      data.push([country.miscData.name, country[dataFunction]()])
+      console.log([country.miscData.name, country[dataFunction]()])
     }
     return google.visualization.arrayToDataTable(data)
   }

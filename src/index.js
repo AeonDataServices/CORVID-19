@@ -14,15 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
     loadingScreen.finishLoading()
     new Dashboard()
     const countrySelector = new CountrySelector('.countries-list')
-		new GoogleChart('#chart-total-cases', countrySelector, 'Total confirmed cases','getTotalCasesByDate')
-		new GoogleChart('#chart-new-cases', countrySelector, 'New cases','getNewCasesByDate')
-		new GoogleChart('#chart-growth-rate', countrySelector, 'Growth rate','getGrowthRateByDate', {
+		new GoogleChart('#baseCharts', countrySelector, 'Total confirmed cases','getTotalCasesByDate')
+		new GoogleChart('#baseCharts', countrySelector, 'New cases','getNewCasesByDate')
+		new GoogleChart('#baseCharts', countrySelector, 'Growth rate','getGrowthRateByDate', {
 		  vAxis:
 		  {
 			  logScale: true
 		  }
 		})
-		new GoogleChart('#chart-death-rate', countrySelector, 'Death rate','getDeathRateByDate')
+		new GoogleChart('#baseCharts', countrySelector, 'Death rate','getDeathRateByDate')
 
     M.Tabs.init(document.querySelector('.tabs'), {})
   })

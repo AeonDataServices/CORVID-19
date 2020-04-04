@@ -1,25 +1,37 @@
-const startFromOutbreak = true
+import { Util } from "../util/utility.js"
+
 export class GoogleChart {
     constructor(elementID, countryProvider, chartTitle, dataFunction, additionalOptions = {}) {
         this.chartTitle = chartTitle
         this.dataFunction = dataFunction
         this.additionalOptions = additionalOptions
+        this.startFromOutbreak = false
+        this.logarithmic = false
 
-        this.element = document.querySelector(elementID)
+        const container = document.querySelector(elementID)
+        this.element = Util.appendElement(container, 'div', '', 'row chartWrapper')
+        this.chartElement = Util.appendElement(this.element, 'div', '', 'chart')
+        this.initModifiers()
 
         countryProvider.subscribe(this.countriesChanged.bind(this))
         this.countries = countryProvider.getSelectedCountries()
 
         this.processData()
-        this.chart = new google.visualization.LineChart(this.element)
+        this.chart = new google.visualization.LineChart(this.chartElement)
         this.draw()
+    }
+
+    initModifiers() {
+        const logSwitch = Util.appendElement(this.element, 'div', '', 'switch')
+        Util.appendElement(logSwitch, 'label', '<input type="checkbox"> <span class="lever"></span> Show as days since >100 cases')
+        this.element.querySelector('input[type="checkbox"]').addEventListener('change', (() => {this.startFromOutbreak = !this.startFromOutbreak; this.updateChart()}).bind(this))
     }
 
     processData() {
         if (this.countries.length === 1) {
             this.tableToRender = this.countries[0][this.dataFunction]()
             this.tableToRender = new google.visualization.DataView(this.tableToRender)
-            this.tableToRender.setColumns((startFromOutbreak) ? [2, 1] : [0, 1])
+            this.tableToRender.setColumns((this.startFromOutbreak) ? [2, 1] : [0, 1])
         } else {
             let joinedTable;
             this.tableToRender = null
@@ -33,7 +45,7 @@ export class GoogleChart {
                     firstTable,
                     secondTable,
                     'full',
-                    (startFromOutbreak) ? outBreakKey : [[0,0]],
+                    (this.startFromOutbreak) ? outBreakKey : [[0,0]],
                     indicesList,
                     [1]
                 )
@@ -54,12 +66,16 @@ export class GoogleChart {
 
     countriesChanged(countries) {
         this.renderedCountries = countries
+        this.updateChart()
+    }
+
+    updateChart() {
         this.processData()
         this.draw()
     }
 
     draw() {
-        if (startFromOutbreak) {
+        if (this.startFromOutbreak) {
             const rows = this.tableToRender.getFilteredRows([{column: 0, minValue: 1}])
             this.tableToRender.setRows(rows)
         }

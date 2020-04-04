@@ -1,3 +1,3 @@
 export const env = {
-	mapsAPI: 'AIzaSyBubQskFIfulv53q2el9iDI41xfwegzmSI'
+	mapsAPI: 'AIzaSyA241rjCkcLzfr4iSNzswX_N7Ftc12Prfc'
 }
