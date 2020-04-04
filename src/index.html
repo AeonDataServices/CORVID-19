@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/loadingScreen.css">
     <link rel="stylesheet" href="./styles/dashboard.css">
+    <link rel="stylesheet" href="./styles/baseCharts.css">
     <!-- font-awesome -->
     <script src="https://kit.fontawesome.com/467034ff6c.js" crossorigin="anonymous"></script>
     <!-- domain slider -->
@@ -15,6 +16,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <!-- materialize -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyA241rjCkcLzfr4iSNzswX_N7Ftc12Prfc" async="" defer="defer"></script>
   </head>
   <body>
     <nav>
@@ -60,11 +62,7 @@
               <p>Datasets are pulled from the ECDC on an hourly basis</p>
             </div>
           </div>
-          <div class="countrySelector col l10 side-display">
-            <div class="row chart" id="chart-total-cases"></div>
-            <div class="row chart" id="chart-new-cases"></div>
-            <div class="row chart" id="chart-growth-rate"></div>
-            <div class="row chart" id="chart-death-rate"></div>
+          <div class="countrySelector col l10 side-display" id="baseCharts">
           </div>
         </div>
         <div class="chartList" id="customCharts"><h6>coming soon</h6></div>
