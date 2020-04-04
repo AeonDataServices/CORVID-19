@@ -46,6 +46,7 @@ export class Country {
             outbreakStartTable.push((index <= this.outbreakStartIndex) ? 0 : index - this.outbreakStartIndex)
         }
         const processedData = this.baseData.cases.map((data, i) => [data[0], outbreakStartTable[i]])
+        this.daysSinceOutbreak = outbreakStartTable[outbreakStartTable.length - 1]
         this.dayReference = new google.visualization.DataTable()
         this.dayReference.addColumn('datetime', 'Date')
         this.dayReference.addColumn('number', 'Day')
@@ -101,6 +102,9 @@ export class Country {
     }
     getTotalDeathRate() {
         return this.baseData.deathRate[this.baseData.deathRate.length - 1][1]
+    }
+    getCurrentOutbreakDay() {
+        return this.daysSinceOutbreak
     }
     getAssumedRecoveries() {
         return this.assumedRecoveries

@@ -3,7 +3,16 @@
 }
 .chartWrapper .switch {
 	position: absolute;
-	left: 400px;
-	top:25px;
+	left: 200px;
+	top:7px;
 	z-index: 5;
+}
+
+.chartWrapper {
+	width: 50%;
+}
+
+#baseCharts {
+	display: flex;
+	flex-wrap: wrap;
 }

@@ -98,7 +98,6 @@ class DataService {
     const data = [['Country', title]]
     for (const country of this.countries) {
       data.push([country.miscData.name, country[dataFunction]()])
-      console.log([country.miscData.name, country[dataFunction]()])
     }
     return google.visualization.arrayToDataTable(data)
   }

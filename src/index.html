@@ -30,58 +30,56 @@
   <body>
     <nav>
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo center"><i class="fas fa-crow"></i>COVID-19 Dashboard</a>
+        <a href="#" class="brand-logo center">COVID-19 Data</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li class="pageLink active"><a href="#dashboard">Dashboard</a></li>
+          <li class="pageLink"><a href="#chartList">Comparison charts</a></li>
+          <!-- <li class="pageLink"><a href="#customCharts">Advanced/custom charts</a></li> -->
+          <!-- <li class="pageLink"><a href="#dataTables">Data Tables</a></li> -->
+        </ul>
       </div>
     </nav>
-    <div id="mainDisplay" class="row">
-      <ul class="tabs">
-        <li class="tab col s3"><a class="active" href="#dashboard">World Map</a></li>
-        <li class="tab col s3"><a href="#chartList">Base charts</a></li>
-        <li class="tab col s3"><a href="#customCharts">Advanced/custom charts</a></li>
-        <li class="tab col s3"><a href="#dataTables">Data Tables</a></li>
-      </ul>
-      </div>
+    <main>
       <div class="center-display">
-        <div id="loadingPlaceholder" class="row">
+        <div id="loadingPlaceholder" class="row page">
           <h4>Loading content</h4>
           <div class="progress">
             <div class="indeterminate"></div>
           </div>
           <p class="updates"></p>
         </div>
-        <div class="chartList row" id="dashboard">
-          <div class="col l2" id="leftCards">
+        <div class="chartList row page" id="dashboard">
+          <div class="col l2 s6 push-l1" id="leftCards">
           </div>
-          <div class="col l8">
+          <div class="col l6 s12 push-l1 push-s12">
             <h5>Average rate of new cases(%) the past 5 days</h5>
             <div id="mainMap"></div>
           </div>
-          <div class="col l2" id="rightCards"></div>
+          <div class="col l2 s6 push-l1" id="rightCards"></div>
         </div>
-        <div class="chartList row" id="chartList">
-          <div class="countrySelector col l2 side-display">
+        <div class="chartList row page" id="chartList">
+          <div class="countrySelector col l2 s12 side-display">
             <div class="sidebar-content">
               <h5>Countries</h5>
               <div>
                 <div class="countries-list"></div>
               </div>
-              <hr>
-              <h5><i class="fas fa-info-circle"></i> Information</h5>
-              <p>This dashboard uses <a href="https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases" target="_blank">ECDC Datasets</a> along with population data from <a href="https://restcountries.eu" target="_blank" rel="noopener noreferrer">restcountries</a></p>
-              <p>Datasets are pulled from the ECDC on an hourly basis</p>
             </div>
           </div>
-          <div class="countrySelector col l10 side-display" id="baseCharts">
+          <div class="countrySelector col l10 s12 side-display" id="baseCharts">
           </div>
         </div>
-        <div class="chartList" id="customCharts"><h6>coming soon</h6></div>
-        <div class="chartList" id="dataTables">
-          <table>
-
-          </table>
+      </div>
+    </main>
+    <!-- footer -->
+    <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container">
+          © 2020 AeonDS
+          <span class="grey-text text-lighten-4 right" href="#!">Data provided by ECDC and restCountries</span>
         </div>
       </div>
-    </div>
+    </footer>
   </body>
   <!-- materialize js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

@@ -1,11 +1,27 @@
 html, body {
   font-family: 'Roboto', sans-serif;
-  height: 100%;
-  overflow: hidden;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 body nav {
   box-shadow: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.center-display .page {
+  padding-top: 64px;
 }
 
 .infoWrapper {
@@ -60,76 +76,12 @@ body nav {
   justify-content: space-between;
 }
 
-.data-table {
-  height: 85vh;
-  overflow-y: scroll;
-  width: 100%;
-}
-
-.data-table th {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  border-collapse: separate;
-  background-color: white;
-}
-
-.data-table .highlight {
-  background-color: yellow;
-  font-weight: bold;
-  background-color: #ffbfbf;
-}
-
-#mainDisplay td, #mainDisplay th {
-  border: solid 1px gray;
-  overflow: hidden;
-}
-
-.center-display {
-  padding-top: 48px;
-  height: 100%;
-  overflow-y: scroll;
-}
-
-.chartList {
-  overflow-x: hidden;
-}
-
 .tabs {
   margin-top: 40px;
 }
 
 .inline-numeric {
   width:40px !important;
-}
-
-.side-display {
-  border-left: solid 1px gray;
-  border-right: solid 1px gray;
-  height: 100%;
-}
-
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: solid 1px gray;
-  padding: 5px 15px;
-  font-weight: bold;
-}
-
-#mainDisplay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding-top: 64px;
-  width: 100%;
-  margin-bottom: 0;
-  overflow: hidden;
-}
-
-#mainDisplay.row .col {
-  padding: 0px;
 }
 
 .sidebar-content {
@@ -145,4 +97,8 @@ body nav {
   border: solid 1px gray;
   border-radius: 5px;
   text-align: center;
+}
+
+footer.page-footer {
+  padding-top: 0;
 }
