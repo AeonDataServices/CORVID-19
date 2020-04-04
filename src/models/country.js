@@ -1,10 +1,12 @@
 import { Util } from "../util/utility.js"
+import { dataService } from "../data/data.js"
 
 export class Country {
     constructor(name, color, data) {
         this.name = name
         this.color = color
         this.baseData = data
+        this.miscData = dataService.countriesAPIAlpha3Lookup[data.alpha3]
         this.processData()
         console.log(this)
     }
@@ -12,28 +14,36 @@ export class Country {
     processData() {
         this.generateDayReferenceData()
         this.generateAssumedRecoveriesData()
-        const dataToExtract = Object.keys(this.baseData)
+        const dataToExtract = dataService.getAvailabeTableNames()
         for (const dataName of dataToExtract) {
             const data = new google.visualization.DataTable()
             data.addColumn('datetime', 'Date')
             data.addColumn('number', this.name)
             data.addRows(this.baseData[dataName])
-            this[dataName] = data
+            const joinedTable = google.visualization.data.join(
+                data,
+                this.dayReference,
+                'inner',
+                [[0,0]],
+                [1],
+                [1]
+            )
+            console.log('joined table', this.name, joinedTable)
+            this[dataName] = joinedTable
         }
     }
 
     getOutbreakStartIndex() {
         if (this.outbreakStartIndex) return this.outbreakStartIndex
-        const index = this.baseData.casesPct.findIndex(kv => kv[1] > 10)
+        const index = this.baseData.cases.findIndex(kv => kv[1] > 100)
         this.outbreakStartIndex = index
     }
 
     generateDayReferenceData() {
         this.getOutbreakStartIndex()
-        this.generateAssumedRecoveriesData()
         let outbreakStartTable = []
         for (let index = 0; index < this.baseData.casesPct.length; index++) {
-            outbreakStartTable.push((index < this.outbreakStartIndex) ? 0 : index - this.outbreakStartIndex)
+            outbreakStartTable.push((index <= this.outbreakStartIndex) ? 0 : index - this.outbreakStartIndex)
         }
         const processedData = this.baseData.cases.map((data, i) => [data[0], outbreakStartTable[i]])
         this.dayReference = new google.visualization.DataTable()
@@ -83,8 +93,14 @@ export class Country {
     getNewDeathsByDate() {
         return this.newDeaths
     }
+    getDayReference() {
+        return this.dayReference
+    }
     getTotalCases() {
         return this.baseData.cases[this.baseData.cases.length - 1][1]
+    }
+    getTotalDeathRate() {
+        return this.baseData.deathRate[this.baseData.deathRate.length - 1][1]
     }
     getAssumedRecoveries() {
         return this.assumedRecoveries
@@ -93,7 +109,7 @@ export class Country {
         return this.activeCases
     }
     getCaseDensity() {
-        const pop100k =  (this.data.population) / 100000
+        const pop100k =  (this.miscData.population) / 100000
         return this.getTotalCases() / pop100k
     }
     getRecentGrowth(start = 5, days = 5) {
@@ -110,6 +126,9 @@ export class Country {
 
     getName() {
         return this.name
+    }
+    getAlpha3Code() {
+        return this.alpha3Code
     }
 
     getColor() {
