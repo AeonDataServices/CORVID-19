@@ -113,16 +113,16 @@ export class Country {
             [1],
             [1]
         )
-        if (this.measuresReference) {          
-            joinedTable = google.visualization.data.join(
-                joinedTable,
-                this.measuresReference,
-                'left',
-                [[0,0]],
-                [1,2],
-                [1]
-            )
-        }
+        //if (this.measuresReference) {          
+        //    joinedTable = google.visualization.data.join(
+        //        joinedTable,
+        //        this.measuresReference,
+        //        'left',
+        //        [[0,0]],
+        //        [1,2],
+        //        [1]
+        //    )
+        //}
         return joinedTable
     }
 

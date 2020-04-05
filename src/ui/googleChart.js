@@ -60,11 +60,12 @@ export class GoogleChart {
         } else {
             let joinedTable;
             this.tableToRender = null
-            const indicesList = [0]
+            const indicesList = []
             for (let index = 1; index < this.countries.length; index++) {
                 const firstTable = (index === 1) ? this.countries[0][this.dataFunction]() : joinedTable
                 const secondTable = this.countries[index][this.dataFunction]()
                 const outBreakKey = (index === 1) ? [[2,2]] : [[0,2]]
+                indicesList.push(index)
                 joinedTable = google.visualization.data.join(
                     firstTable,
                     secondTable,
@@ -73,7 +74,6 @@ export class GoogleChart {
                     indicesList,
                     [1]
                 )
-                indicesList.push(indicesList[indicesList.length - 1] + 1)
             }
             console.log(joinedTable)
             this.tableToRender = new google.visualization.DataView(joinedTable)
