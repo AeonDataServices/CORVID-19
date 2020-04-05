@@ -6,11 +6,14 @@ export class GoogleChart {
         this.dataFunction = dataFunction
         this.additionalOptions = additionalOptions
         this.startFromOutbreak = false
+        this.legend = false
         this.logarithmic = false
+        this.fullWidth = false
 
         const container = document.querySelector(elementID)
         this.element = Util.appendElement(container, 'div', '', 'chartWrapper col l6 s12')
         this.chartElement = Util.appendElement(this.element, 'div', '', 'chart')
+        this.inputWrapper = Util.appendElement(this.element, 'div', '', 'inputs')
         this.initModifiers()
 
         countryProvider.subscribe(this.countriesChanged.bind(this))
@@ -22,9 +25,30 @@ export class GoogleChart {
     }
 
     initModifiers() {
-        const logSwitch = Util.appendElement(this.element, 'div', '', 'switch')
-        Util.appendElement(logSwitch, 'label', '<input type="checkbox"> <span class="lever"></span> Show as days since >100 cases')
-        this.element.querySelector('input[type="checkbox"]').addEventListener('change', (() => {this.startFromOutbreak = !this.startFromOutbreak; this.updateChart()}).bind(this))
+        this.cog = Util.appendElement(this.inputWrapper, 'a', '<i class="fas fa-cog"></i>')
+        this.cog.addEventListener('click', (() => {
+            const hidden = this.switches.style.display === 'none'
+            if (hidden) {
+                this.switches.style.display = 'block'
+                this.cog.querySelector('i').className = 'fas fa-minus-square'
+            } else {
+                this.switches.style.display = 'none'
+                this.cog.querySelector('i').className = 'fas fa-cog'
+            }
+        }).bind(this))
+        this.switches = Util.appendElement(this.inputWrapper, 'div', '', 'switches')
+        this.switches.style.display = 'none'
+        const domainSwitch = Util.appendElement(this.switches, 'div', '', 'switch')
+        Util.appendElement(domainSwitch, 'label', '<input type="checkbox"> <span class="lever"></span> Show as days since >100 cases', 'domainSwitch')
+        this.element.querySelector('.domainSwitch input[type="checkbox"]').addEventListener('change', (() => {this.startFromOutbreak = !this.startFromOutbreak; this.updateChart()}).bind(this))
+        
+        const legendSwitch = Util.appendElement(this.switches, 'div', '', 'switch')
+        Util.appendElement(legendSwitch, 'label', '<input type="checkbox"> <span class="lever"></span> Show legend', 'legendSwitch')
+        this.element.querySelector('.legendSwitch input[type="checkbox"]').addEventListener('change', (() => {this.legend = !this.legend; this.updateChart()}).bind(this))
+        
+        const sizeSwitch = Util.appendElement(this.switches, 'div', '', 'switch')
+        Util.appendElement(sizeSwitch, 'label', '<input type="checkbox"> <span class="lever"></span> Fullscreen', 'sizeSwitch')
+        this.element.querySelector('.sizeSwitch input[type="checkbox"]').addEventListener('change', (() => {this.fullWidth = !this.fullWidth; this.updateChart()}).bind(this))
     }
 
     processData() {
@@ -32,15 +56,15 @@ export class GoogleChart {
             this.tableToRender = this.countries[0][this.dataFunction]()
             this.tableToRender = new google.visualization.DataView(this.tableToRender)
             this.tableToRender.setColumns((this.startFromOutbreak) ? [2, 1] : [0, 1])
+            console.log('table', this.tableToRender)
         } else {
             let joinedTable;
             this.tableToRender = null
-            const indicesList = []
+            const indicesList = [0]
             for (let index = 1; index < this.countries.length; index++) {
                 const firstTable = (index === 1) ? this.countries[0][this.dataFunction]() : joinedTable
                 const secondTable = this.countries[index][this.dataFunction]()
                 const outBreakKey = (index === 1) ? [[2,2]] : [[0,2]]
-                indicesList.push(index)
                 joinedTable = google.visualization.data.join(
                     firstTable,
                     secondTable,
@@ -49,19 +73,19 @@ export class GoogleChart {
                     indicesList,
                     [1]
                 )
-                console.log('joining', firstTable, secondTable)
+                indicesList.push(indicesList[indicesList.length - 1] + 1)
             }
-            console.log('indices', indicesList, joinedTable)
+            console.log(joinedTable)
             this.tableToRender = new google.visualization.DataView(joinedTable)
         }
         const series = {}
         this.countries.forEach((country, index) => series[index] = {color: country.getColor()})
         this.options = {
             title: this.chartTitle,
-            //legend: {position: 'right'},
-            legend: 'none',
+            legend: ((this.legend) ? {position: 'right'} : 'none'),
             series: series,
-            chartArea: {left: 50, top: 40, width: '90%', height: '80%'}
+            chartArea: {left: 50, top: 40, width: ((this.legend) ? '80%': '90%'), height: '80%'},
+            pointSize: 0.2,
         }
         for (const key of Object.keys(this.additionalOptions)) this.options[key] = this.additionalOptions[key]
     }
@@ -80,6 +104,13 @@ export class GoogleChart {
         if (this.startFromOutbreak) {
             const rows = this.tableToRender.getFilteredRows([{column: 0, minValue: 1}])
             this.tableToRender.setRows(rows)
+        }
+        if (this.fullWidth) {
+            this.element.classList.remove('l6')
+            this.element.classList.add('l12')
+        } else {
+            this.element.classList.remove('l12')
+            this.element.classList.add('l6') 
         }
         this.chart.draw(this.tableToRender, this.options)
     }

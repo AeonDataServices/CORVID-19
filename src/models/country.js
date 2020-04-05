@@ -8,28 +8,39 @@ export class Country {
         this.baseData = data
         this.miscData = dataService.countriesAPIAlpha3Lookup[data.alpha3]
         this.processData()
-        console.log(this)
     }
 
     processData() {
+        this.fixRecoveryData()
         this.generateDayReferenceData()
         this.generateAssumedRecoveriesData()
+        this.generateActiveCases()
+        this.generateMeasuresReference()
         const dataToExtract = dataService.getAvailabeTableNames()
         for (const dataName of dataToExtract) {
             const data = new google.visualization.DataTable()
             data.addColumn('datetime', 'Date')
             data.addColumn('number', this.name)
             data.addRows(this.baseData[dataName])
-            const joinedTable = google.visualization.data.join(
-                data,
-                this.dayReference,
-                'inner',
-                [[0,0]],
-                [1],
-                [1]
-            )
-            console.log('joined table', this.name, joinedTable)
-            this[dataName] = joinedTable
+            this[dataName] = this.joinMetaData(data)
+            console.log(this.name, this[dataName])
+            //const joinedTable = google.visualization.data.join(
+            //    data,
+            //    this.dayReference,
+            //    'inner',
+            //    [[0,0]],
+            //    [1],
+            //    [1]
+            //)
+            //this[dataName] = joinedTable
+        }
+    }
+
+    fixRecoveryData() {
+        const startDate = this.baseData.recoveries[0][0]
+        for (const [date, val] of this.baseData.cases) {
+            if (date.toDateString() === startDate.toDateString()) break
+            this.baseData.recoveries.unshift([date, 0])
         }
     }
 
@@ -37,6 +48,20 @@ export class Country {
         if (this.outbreakStartIndex) return this.outbreakStartIndex
         const index = this.baseData.cases.findIndex(kv => kv[1] > 100)
         this.outbreakStartIndex = index
+    }
+
+    generateMeasuresReference() {
+        if (!this.baseData.measures) return
+        let referenceTable = []
+        for (const name of Object.keys(this.baseData.measures)) {
+            const date = this.baseData.measures[name][0]
+            date.setHours(0,0,0,0)
+            referenceTable.push([date, `point { size: 10; shape-type: ${this.baseData.measures[name][1]}; fill-color: #a52714;}`])
+        }
+        this.measuresReference = new google.visualization.DataTable()
+        this.measuresReference.addColumn('datetime', 'Date')
+        this.measuresReference.addColumn({'type': 'string', 'role': 'style'})
+        this.measuresReference.addRows(referenceTable)
     }
 
     generateDayReferenceData() {
@@ -53,6 +78,16 @@ export class Country {
         this.dayReference.addRows(processedData)
     }
 
+    generateActiveCases() {
+        const activeCases = this.baseData.cases.map(([date, val], index) => {
+            const recoveries = (this.baseData.recoveries[index]) ? this.baseData.recoveries[index][1] : 0
+            return [date, val - recoveries - this.baseData.deaths[index][1]]
+        })
+        activeCases.splice(this.baseData.cases.length - 1)
+        const activeCasesTable = Util.gerateDataTable([['datetime', 'Date'], ['number', this.name]], activeCases)
+        this.activeCases = this.joinMetaData(activeCasesTable)
+    }
+
     generateAssumedRecoveriesData(recoveryTime = 14) {
         const newCases = this.baseData['newCases']
         const newDeaths = this.baseData['newDeaths']
@@ -67,13 +102,28 @@ export class Country {
             assumedRecoveries[index] = [date, cases]
         }
         this.assumedRecoveries = Util.gerateDataTable([['datetime', 'Date'], ['number', this.name]], assumedRecoveries)
-        let totalRecoveries = 0
-        const activeCases = this.baseData['cases'].map(([date, val], index) => {
-            totalRecoveries = totalRecoveries + assumedRecoveries[index][1]
-            return [date, val - totalRecoveries]
-        })
-        console.log(this.name, totalRecoveries)
-        this.activeCases = Util.gerateDataTable([['datetime', 'Date'], ['number', this.name]], activeCases)
+    }
+
+    joinMetaData(table) {
+        let joinedTable = google.visualization.data.join(
+            table,
+            this.dayReference,
+            'inner',
+            [[0,0]],
+            [1],
+            [1]
+        )
+        if (this.measuresReference) {          
+            joinedTable = google.visualization.data.join(
+                joinedTable,
+                this.measuresReference,
+                'left',
+                [[0,0]],
+                [1,2],
+                [1]
+            )
+        }
+        return joinedTable
     }
 
     getTotalCasesByDate() {
@@ -87,6 +137,9 @@ export class Country {
     }
     getDeathsByDate() {
         return this.deaths
+    }
+    getRecoveriesByDate() {
+        return this.recoveries
     }
     getNewCasesByDate() {
         return this.newCases
@@ -109,7 +162,7 @@ export class Country {
     getAssumedRecoveries() {
         return this.assumedRecoveries
     }
-    getActiveCases() {
+    getActiveCasesByDate() {
         return this.activeCases
     }
     getCaseDensity() {
@@ -123,8 +176,7 @@ export class Country {
     }
     getRecentGrowthChange(dayCount = 7) {
         const firstGrowth = this.getRecentGrowth(dayCount, dayCount)
-        const secondGrowth = this.getRecentGrowth(2*dayCount, dayCount)
-        console.log(this.name, firstGrowth, secondGrowth)        
+        const secondGrowth = this.getRecentGrowth(2*dayCount, dayCount)   
         return firstGrowth - secondGrowth
     }
 

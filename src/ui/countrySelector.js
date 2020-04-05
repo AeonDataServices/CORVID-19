@@ -3,7 +3,7 @@ import { Util } from '../util/utility.js'
 import { Observable } from '../util/observable.js'
 
 export class CountrySelector extends Observable {
-  constructor(elementID, defaultCountries = [dataService.getCountries()[9], dataService.getCountries()[10]]) {
+  constructor(elementID, defaultCountries = [dataService.getCountries()[9]]) {
     super()
     this.listDiv = document.querySelector(elementID)
     this.selectedCountries = defaultCountries

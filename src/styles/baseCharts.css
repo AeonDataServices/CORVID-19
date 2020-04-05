@@ -1,11 +1,22 @@
 .chartWrapper {
 	position: relative;
 }
-.chartWrapper .switch {
+.inputs {
 	position: absolute;
-	left: 200px;
-	top:7px;
+	left: 40px;
+    top: 10px;
 	z-index: 5;
+}
+
+.inputs .switches {
+	background-color: white;
+	padding: 5px;
+	border: solid 1px gray;
+	border-radius: 5px;
+}
+
+.inputs .switches label {
+	margin-top: 5px;
 }
 
 .chartWrapper {

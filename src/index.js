@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		  }
 		})
 		new GoogleChart('#baseCharts', countrySelector, 'Death rate','getDeathRateByDate')
-		new BubbleChart('#baseCharts', countrySelector, '')
+		new GoogleChart('#JHUCharts', countrySelector, 'Recoveries','getRecoveriesByDate')
+		new GoogleChart('#JHUCharts', countrySelector, 'Active cases','getActiveCasesByDate')
+		new BubbleChart('#miscCharts', countrySelector, 'Bubble chart of Growth rate, Time since outbreak, Death rate and Total cases')
 		new PageManager('body')
   })
 })
