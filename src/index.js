@@ -26,6 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
 		new GoogleChart('#baseCharts', countrySelector, 'Death rate','getDeathRateByDate')
 		new BubbleChart('#baseCharts', countrySelector, '')
-		new PageManager('#nav-mobile')
+		new PageManager('body')
   })
 })
