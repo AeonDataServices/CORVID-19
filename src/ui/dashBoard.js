@@ -17,9 +17,9 @@ export class Dashboard {
 	}
 
 	initCards() {
-		const countriesCard = new DashCard('#leftCards', `${dataService.getFocusedCountries().length}`, 'Countries tracked')
+		const countriesCard = new DashCard('#leftCards', `${dataService.getFocusedCountries().length}`, 'Countries tracked', '<a href="#chartList" class="pageLink">Compare countries</a>')
 		Util.appendElement(countriesCard.content, 'p', dataService.getFocusedCountries().join('<br/>'), 'list')
-		new DashCard('#rightCards', `${Math.round(dataService.getGlobalNewCases())}%`, 'Case increase in the past 5 days')
-		new DashCard('#rightCards', `${Math.round(dataService.getGlobalDeathRate())}%`, 'Average Death Rate')
+		new DashCard('#rightCards', `${Math.round(dataService.getGlobalNewCases())}%`, 'Case increase in the past 5 days', '<a href="#chartList" class="pageLink">Compare countries</a>')
+		new DashCard('#rightCards', `${Math.round(dataService.getGlobalDeathRate())}%`, 'Average Death Rate', '<a href="#chartList" class="pageLink">Compare countries</a>')
 	}
 }
