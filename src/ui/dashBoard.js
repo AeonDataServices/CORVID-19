@@ -11,7 +11,7 @@ export class Dashboard {
 	initMap() {
 		this.map = new google.visualization.GeoChart(document.getElementById('mainMap'))
 		this.map.draw(dataService.getAllCountriesTable('Rate of new cases(%) past 5 days', 'getRecentGrowth'), {
-		  colorAxis: {colors: ['white', 'red']},
+		  colorAxis: {colors: ['white', '#344972']},
 		  datalessRegionColor: '#adadad'
 		})
 	}

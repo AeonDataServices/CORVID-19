@@ -8,6 +8,10 @@ body {
   flex-direction: column;
 }
 
+html nav, html footer.page-footer {
+  background-color: #344972;
+}
+
 main {
   flex: 1 0 auto;
 }
