@@ -60,9 +60,6 @@ export const Util = {
     if (cssClass) element.setAttribute('class', cssClass)
     return element
   },
-  colorPicker: (CountrySelector, event) => {
-    console.log(CountrySelector, event)
-  },
   gerateDataTable: (columns, rows) => {
     const dataTable = new google.visualization.DataTable()
     for (const column of columns)

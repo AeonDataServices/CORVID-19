@@ -28,8 +28,6 @@ export class BubbleChart {
 				country.getTotalCases(),
 			])
 		}
-		console.log(this.countries)
-		console.log(data)
 		this.tableToRender = google.visualization.arrayToDataTable(data)
     }
 
