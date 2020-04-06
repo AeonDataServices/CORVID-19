@@ -6,14 +6,19 @@ import { Dashboard } from './ui/dashBoard.js'
 import { PageManager } from './ui/pagination.js'
 import { BubbleChart } from './ui/bubbleChart.js'
 
+
+
+
 loadingScreen.startLoading()
 
 loadingScreen.updateText('Loading DOM')
 document.addEventListener('DOMContentLoaded', () => {
   loadingScreen.updateText('DOM loaded')
   loadingScreen.updateText('Initializing Data')
+  
   dataService.isDataInitialized().then(() => {
-    loadingScreen.finishLoading()
+	loadingScreen.finishLoading()
+
     new Dashboard()
     const countrySelector = new CountrySelector('.countries-list')
 		new GoogleChart('#baseCharts', countrySelector, 'Total confirmed cases','getTotalCasesByDate')
@@ -30,4 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		new BubbleChart('#miscCharts', countrySelector, 'Bubble chart of Growth rate, Time since outbreak, Death rate and Total cases')
 		new PageManager('body')
   })
+  const sidenav = document.querySelectorAll('.sidenav');
+  const sidenavInstance = M.Sidenav.init(sidenav, {closeOnClick: true, edge: 'right'}); 
 })
