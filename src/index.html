@@ -32,12 +32,17 @@
     <nav>
       <div class="nav-wrapper">
         <a href="#" class="brand-logo center">COVID-19 Data</a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <a href="#" data-target="mobileDrawer" class="right sidenav-trigger"><i class="fas fa-bars"></i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="active"><a class="pageLink" href="#dashboard">Dashboard</a></li>
           <li><a class="pageLink" href="#chartList">Comparison charts</a></li>
         </ul>
       </div>
     </nav>
+    <ul class="right sidenav" id="mobileDrawer">
+      <li><a class="pageLink sidenav-close" href="#dashboard">Dashboard</a></li>
+      <li><a class="pageLink sidenav-close" href="#chartList">Comparison charts</a></li>
+    </ul>
     <main class="center-display">
         <div id="loadingPlaceholder" class="row page">
           <h4>Loading content</h4>
