@@ -60,7 +60,8 @@ const testMeasuresData = {
 class DataService {
   constructor() {
     this.dataSet = {}
-    this.dataInitialized = false;
+    this.dataInitialized = false
+    loadingScreen.updateText('Starting data service')
     this.dataInitializationPromise = this.prepareData()
     this.validCountries = []
   }
