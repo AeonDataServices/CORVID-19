@@ -67,5 +67,14 @@ export const Util = {
       dataTable.addColumn(...column)
     dataTable.addRows(rows)
     return dataTable
+  },
+  isToday: (date) => {
+    const today = new Date()
+    return date.getDate() == today.getDate() &&
+      date.getMonth() == today.getMonth() &&
+      date.getFullYear() == today.getFullYear()
+  },
+  commaSeparatedNumber: (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 }

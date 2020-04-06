@@ -12,8 +12,8 @@ export class Country {
 
     processData() {
         this.fixRecoveryData()
+        this.clipCurrentDay()
         this.generateDayReferenceData()
-        this.generateAssumedRecoveriesData()
         this.generateActiveCases()
         this.generateMeasuresReference()
         const dataToExtract = dataService.getAvailabeTableNames()
@@ -33,6 +33,16 @@ export class Country {
             //    [1]
             //)
             //this[dataName] = joinedTable
+        }
+    }
+
+    clipCurrentDay() {
+        const dataToExtract = dataService.getAvailabeTableNames()
+        for (const dataName of dataToExtract) {
+            const table = this.baseData[dataName]
+            const lastDate = table[table.length - 1][0]
+            if (Util.isToday(lastDate))
+                this.baseData[dataName].splice(this.baseData[dataName].length - 1)
         }
     }
 
@@ -155,6 +165,9 @@ export class Country {
     }
     getTotalDeathRate() {
         return this.baseData.deathRate[this.baseData.deathRate.length - 1][1]
+    }
+    getCurrentGrowthRate() {
+        return this.baseData.casesPct[this.baseData.casesPct.length - 1][1]
     }
     getCurrentOutbreakDay() {
         return this.daysSinceOutbreak
