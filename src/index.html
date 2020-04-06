@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COVID-19</title>
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/loadingScreen.css">
@@ -37,8 +38,7 @@
         </ul>
       </div>
     </nav>
-    <main>
-      <div class="center-display">
+    <main class="center-display">
         <div id="loadingPlaceholder" class="row page">
           <h4>Loading content</h4>
           <div class="progress">
@@ -46,14 +46,14 @@
           </div>
           <p class="updates"></p>
         </div>
-        <div class="chartList row page" id="dashboard">
-          <div class="col l2 s6 push-l1" id="leftCards">
+        <div class="center-display chartList row page" id="dashboard">
+          <div class="col l2 s6 " id="leftCards">
           </div>
-          <div class="col l6 s12 push-l1 push-s12">
+          <div class="col l8 xl8 s12">
             <h5>Average rate of new cases(%) the past 5 days</h5>
             <div id="mainMap"></div>
           </div>
-          <div class="col l2 s6 push-l1" id="rightCards"></div>
+          <div class="col l2 s6 " id="rightCards"></div>
         </div>
         <div class="chartList row page" id="chartList">
           <div class="countrySelector col l2 s12 side-display">
@@ -84,7 +84,6 @@
            </div>
           </div>
         </div>
-      </div>
     </main>
     <!-- footer -->
     <footer class="page-footer">
@@ -98,7 +97,5 @@
   </body>
   <!-- materialize js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <!-- d3 -->
-  <script src="https://d3js.org/d3.v5.min.js"></script>
   <script type="module" src="index.js"></script>
 </html>
