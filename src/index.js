@@ -5,6 +5,7 @@ import { loadingScreen } from './ui/loadingScreen.js'
 import { Dashboard } from './ui/dashBoard.js'
 import { PageManager } from './ui/pagination.js'
 import { BubbleChart } from './ui/bubbleChart.js'
+import { MainTable } from './ui/mainTable.js'
 
 
 
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		new GoogleChart('#JHUCharts', countrySelector, 'Recoveries','getRecoveriesByDate')
 		new GoogleChart('#JHUCharts', countrySelector, 'Active cases','getActiveCasesByDate')
 		new BubbleChart('#miscCharts', countrySelector, 'Bubble chart of Growth rate, Time since outbreak, Death rate and Total cases')
+		new MainTable('#mainTable')
 		new PageManager('body')
   })
   const sidenav = document.querySelectorAll('.sidenav');

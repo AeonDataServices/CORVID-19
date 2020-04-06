@@ -11,12 +11,21 @@ export class PageManager {
 		for (const link of this.element.querySelectorAll('.pageLink')) {
 			link.addEventListener('click', this.changePageEvent.bind(this))
 		}
+		this.loadPageFromURL()
+	}
+
+	loadPageFromURL() {
+		if (this.getPageIDs().includes(window.location.hash)) this.changePage(window.location.hash)
 	}
 
 	hidePages() {
 		this.getPages().forEach(page => {
 			page.style.display = 'none'
 		})
+	}
+
+	getPageIDs() {
+		return Array.from(this.element.querySelectorAll('.pageLink')).map(link => link.getAttribute('href'))
 	}
 
 	getPages() {
@@ -26,17 +35,6 @@ export class PageManager {
 	changePageEvent(event) {
 		const eventTarget = event.target.getAttribute('href')
 		this.changePage(eventTarget)
-		// for (const listObject of this.element.querySelectorAll('.pageLink')) {
-		// 	const link = listObject.querySelector('a')
-		// 	link.addEventListener('click', this.changePage.bind(this))
-		// 	const target = link.getAttribute('href')
-		// 	if (target === eventTarget) {
-		// 		document.querySelector(target).style.display = 'block'
-		// 		listObject.classList.add('active')
-		// 	} else {
-		// 		listObject.classList.remove('active')
-		// 	}
-		// }
 	}
 
 	changePage(page) {
