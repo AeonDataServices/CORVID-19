@@ -16,3 +16,7 @@
 	text-align: left;
 	font-size: 1em;
 }
+
+#leftCards, #rightCards {
+	margin-top: 10px;
+}
