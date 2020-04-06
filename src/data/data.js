@@ -79,7 +79,7 @@ class DataService {
   getFocusedCountries() {
     //return this.validCountries
     // ,'Czech Republic'
-    return ['France','Spain','Germany','Netherlands', 'Czechia','Poland','Italy','United Kingdom','Ireland','Denmark','Norway','Sweden','Finland','United States','Canada','China','India']
+    return ['Belgium', 'France','Spain','Germany','Netherlands', 'Czechia','Poland','Italy','United Kingdom','Ireland','Denmark','Norway','Sweden','Finland','United States','Canada','China','India']
   }
 
   getAvailabeTableNames() {
