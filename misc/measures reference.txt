@@ -1,0 +1,30 @@
+First Case
+	first case
+Self Quarantine advise
+	traveller quarantine
+Social distancing
+	social distancing
+WFH Advisory
+	remote work
+Schools closed
+	school closure
+	university closure
+Public gatherings limit
+	gatherings banned
+State of Emergency
+	emergency declaration
+	state of emergency
+Businesses closed
+	limited nonessential business suspension
+	general nonessential business suspension
+	closure of stores
+Regional lockdown
+	cluster isolation
+National lockdown
+	blanket isolation
+Border closure
+	travel ban
+	traveller ban
+	travel ban - risk countries
+	travel ban - all countries
+	travel resumed

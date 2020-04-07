@@ -2,61 +2,6 @@ import { Util } from '../util/utility.js'
 import { Country } from '../models/country.js';
 import { loadingScreen } from '../ui/loadingScreen.js'
 
-const testMeasuresData = {
-  France: {
-    venuesClosed: [new Date('2020-03-12'), 'star', 'Venues Closed'],
-  },
-  Spain: {
-    venuesClosed: [new Date('2020-03-15'), 'star', 'Venues Closed'],
-    bordersClosed: [new Date('2020-03-27'), 'triangle', 'Borders Closed'],
-  },
-  Germany: {
-    bordersClosed: [new Date('2020-03-26'), 'triangle', 'Borders Closed'],
-  },
-  Netherlands: {
-    venuesClosed: [new Date('2020-03-15'), 'star', 'Venues Closed'],
-  },
-  'Czech Republic': {
-    venuesClosed: [new Date('2020-03-12'), 'star', 'Venues Closed'],
-    bordersClosed: [new Date('2020-03-12'), 'triangle', 'Borders Closed'],
-  },
-  Poland: {
-    venuesClosed: [new Date('2020-03-10'), 'star', 'Venues Closed'],
-  },
-  Italy: {
-    venuesClosed: [new Date('2020-03-08'), 'star', 'Venues Closed'],
-    bordersClosed: [new Date('2020-03-09'), 'triangle', 'Borders Closed'],
-  },
-  'United Kingdom': {
-    venuesClosed: [new Date('2020-03-16'), 'star', 'Venues Closed'],
-  },
-  Ireland: {
-    venuesClosed: [new Date('2020-03-15'), 'star', 'Venues Closed'],
-  },
-  Denmark: {
-    venuesClosed: [new Date('2020-03-13'), 'star', 'Venues Closed'],
-    bordersClosed: [new Date('2020-03-14'), 'triangle', 'Borders Closed'],
-  },
-  Norway: {
-    venuesClosed: [new Date('2020-03-12'), 'star', 'Venues Closed'],
-    bordersClosed: [new Date('2020-03-26'), 'triangle', 'Borders Closed'],
-  },
-  Sweden: {
-  },
-  Finland: {
-    venuesClosed: [new Date('2020-03-16'), 'star', 'Venues Closed'],
-    bordersClosed: [new Date('2020-03-19'), 'triangle', 'Borders Closed'],
-  },
-  'United States': {
-  },
-  Canada: {
-  },
-  India: {
-    venuesClosed: [new Date('2020-03-22'), 'star', 'Venues Closed'],
-    bordersClosed: [new Date('2020-03-23'), 'triangle', 'Borders Closed'],
-  },
-}
-
 class DataService {
   constructor() {
     this.dataSet = {}
@@ -80,7 +25,11 @@ class DataService {
   getFocusedCountries() {
     //return this.validCountries
     // ,'Czech Republic'
-    return ['Belgium', 'France','Spain','Germany','Netherlands', 'Czechia','Poland','Italy','United Kingdom','Ireland','Denmark','Norway','Sweden','Finland','United States','Canada','China','India']
+    return ['Belgium', 'France','Spain','Germany','Netherlands', 'Australia', 'Czechia','Poland','Italy','United Kingdom','Ireland','Denmark','Norway','Sweden','Finland','United States','Canada','China','India']
+  }
+
+  getValidCountries() {
+    return this.validCountries
   }
 
   getAvailabeTableNames() {
@@ -99,9 +48,10 @@ class DataService {
     const countriesAPIResponse = await fetch('https://restcountries.eu/rest/v2/all',{method: 'GET'}).then(res => res.json())
     loadingScreen.updateText('Getting recovery data')
     const recoveriesAPIResponse = await fetch('https://aeonds.com/api/recovery_data',{method: 'GET'}).then(res => res.json())
+    loadingScreen.updateText('Getting government measures data')
+    this.containmentMeasures = await fetch('https://aeonds.com/api/containment_measures',{method: 'GET'}).then(res => res.json())
     for (const country of Object.keys(this.dataSet)) {
       if(recoveriesAPIResponse[country]) this.dataSet[country].recoveries = recoveriesAPIResponse[country].recovered
-      if(testMeasuresData[country]) this.dataSet[country].measures = testMeasuresData[country]
     }
     loadingScreen.updateText('Mergeing country data')
     this.countriesAPIAlpha3Lookup = {}

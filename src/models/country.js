@@ -23,7 +23,6 @@ export class Country {
             data.addColumn('number', this.name)
             data.addRows(this.baseData[dataName])
             this[dataName] = this.joinMetaData(data)
-            console.log(this.name, this[dataName])
             //const joinedTable = google.visualization.data.join(
             //    data,
             //    this.dayReference,
@@ -162,6 +161,9 @@ export class Country {
     }
     getTotalCases() {
         return this.baseData.cases[this.baseData.cases.length - 1][1]
+    }
+    getTotalDeaths() {
+        return this.baseData.deaths[this.baseData.deaths.length - 1][1]
     }
     getTotalDeathRate() {
         return this.baseData.deathRate[this.baseData.deathRate.length - 1][1]
