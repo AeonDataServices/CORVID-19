@@ -7,7 +7,7 @@ export class CountryReport extends Observable {
 	constructor(elementID) {
 		super()
 		this.element = document.querySelector(elementID)
-		this.country = dataService.getCountry('Germany')
+		this.country = dataService.getCountry('Sweden')
 		this.initSelector()
 		this.findCountryMeasures()
 		this.printReport()
@@ -74,6 +74,7 @@ export class CountryReport extends Observable {
 		]
 		for (const measure of measureIDs) {
 			const implemented = this.countryMeasures[measure].active
+			console.log(measure, implemented, this.booleanIcon(implemented), this.countryMeasures.countryName)
 			this.element.querySelector(`#${measure}`).classList = this.booleanIcon(implemented)
 		}
 	}
@@ -87,7 +88,6 @@ export class CountryReport extends Observable {
 	}
 
 	printMeasure(measure) {
-		console.log(measure)
 		const measureContainer = Util.appendElement(this.element.querySelector('#measuresList'), 'div', '', 'col s12')
 		Util.appendElement(measureContainer, 'h5', measure['Date Start'], '')
 		Util.appendElement(measureContainer, 'p', measure['Description of measure implemented'], '')
