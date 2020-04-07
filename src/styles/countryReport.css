@@ -1,0 +1,8 @@
+.report-title {
+	display: flex;
+	align-items: center;
+}
+
+.report-title img {
+	margin-right: 10px;
+}

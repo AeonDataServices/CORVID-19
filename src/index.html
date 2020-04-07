@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/loadingScreen.css">
     <link rel="stylesheet" href="./styles/dashboard.css">
     <link rel="stylesheet" href="./styles/baseCharts.css">
+    <link rel="stylesheet" href="./styles/countryReport.css">
     <!-- font-awesome -->
     <script src="https://kit.fontawesome.com/467034ff6c.js" crossorigin="anonymous"></script>
     <!-- domain slider -->
@@ -37,6 +38,7 @@
           <li class="active"><a class="pageLink" href="#dashboard">Dashboard</a></li>
           <li><a class="pageLink" href="#chartList">Comparison charts</a></li>
           <li><a class="pageLink" href="#tables">Data tables</a></li>
+          <li><a class="pageLink" href="#country">Country reports</a></li>
         </ul>
       </div>
     </nav>
@@ -94,6 +96,72 @@
           <div class="container">
             <h4>Data table view</h4>
             <table id="mainTable"></table>
+          </div>
+        </div>
+        <div class="chartList row page" id="country">
+          <div class="container">
+            <br>
+            <div class="input-field row">
+              <select id="countriesSelector">
+                <option value="" disabled selected>Choose your option</option>
+              </select>
+              <label>Country to display</label>
+            </div>
+            <div class="row">
+              <div class="report-title"><img id="flag" src="https://www.countryflags.io/nl/flat/48.png"> <h4 id="countryName">The Netherlands</h4></div>
+              <div class="col m4">
+                <h6>Total cases: <span id="totalCases"></span></h6>
+                <h6>Case density: <span id="caseDensity"></span> per 100k people</h6>
+              </div>
+              <div class="col m4">
+                <h6>Case increase(5d): <span id="increase5"></span>%</h6>
+                <h6>Case increase(24h): <span id="increase"></span>%</i></h6>
+                <h6></h6>
+              </div>
+              <div class="col m4">
+                <h6>Total deaths: <span id="deaths"></span></h6>
+                <h6>Death rate: <spean id="deathRate"></spean>%</h6>
+                <h6></h6>
+              </div>
+            </div>
+            <hr>
+            <div class="row" id="fromMeasures">
+              <div class="col l3">
+                <b>Travel</b>
+                <p>Traveller quarantine <span id="SelfQuarantineAdvise"></span><i></i></p>
+                <p>Domestic travel ban <span id="domesticTravelBan"></span><i></i></p>
+                <p>International travel ban(risk countries) <span id="riskTravelBan"></span><i></i></p>
+                <p>International travel ban(all countries) <span id="blanketTravelBan"></span><i></i></p>
+              </div>
+              <div class="col l3">
+                <b>Day to day life</b>
+                <p>School Closure <span id="SchoolClosure"></span><i></i></p>
+                <p>Social Distancing <span id="SocialDistancing"></span><i></i></p>
+                <p>Remote Work Advisory <span id="RemoteWork"></span><i></i></p>
+              </div>
+              <div class="col l3">
+                <b>Public places</b>
+                <p>Public gathering limits <span id="PublicGatheringsLImit"></span><i></i></p>
+                <p>Business closure(partial) <span id="limBusinessClosure"></span><i></i></p>
+                <p>Business closure(full) <span id="fullBusinessClosure"></span><i></i></p>
+              </div>
+              <div class="col l3">
+                <b>Lockdown</b>
+                <p>Local lockdown <span id="localLockdown"></span><i></i></p>
+                <p>National lockdown <span id="nationalLockdown"></span><i></i></p>
+                <p>State of emergency <span id="EmergencyState"></span><i></i></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row" id="detail-charts">
+
+            </div>
+            <div class="row">
+              <div class="col s12" id="measuresList">
+                <h3>Event breakdown</h3>
+              </div>
+            </div>
+            <hr>
           </div>
         </div>
     </main>

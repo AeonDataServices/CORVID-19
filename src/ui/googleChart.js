@@ -1,14 +1,24 @@
 import { Util } from "../util/utility.js"
 
 export class GoogleChart {
-    constructor(elementID, countryProvider, chartTitle, dataFunction, additionalOptions = {}) {
+    constructor(
+            elementID,
+            countryProvider,
+            chartTitle,
+            dataFunction,
+            additionalOptions = {},
+            defaultStart = false,
+            defaultLegend = false,
+            defaultLog = false,
+            defalutWidth = false
+    ) {
         this.chartTitle = chartTitle
         this.dataFunction = dataFunction
         this.additionalOptions = additionalOptions
-        this.startFromOutbreak = false
-        this.legend = false
-        this.logarithmic = false
-        this.fullWidth = false
+        this.startFromOutbreak = defaultStart
+        this.legend = defaultLegend
+        this.logarithmic = defaultLog
+        this.fullWidth = defalutWidth
 
         const container = document.querySelector(elementID)
         this.element = Util.appendElement(container, 'div', '', 'chartWrapper col l6 s12')
@@ -56,7 +66,6 @@ export class GoogleChart {
             this.tableToRender = this.countries[0][this.dataFunction]()
             this.tableToRender = new google.visualization.DataView(this.tableToRender)
             this.tableToRender.setColumns((this.startFromOutbreak) ? [2, 1] : [0, 1])
-            console.log('table', this.tableToRender)
         } else {
             let joinedTable;
             this.tableToRender = null
@@ -75,7 +84,6 @@ export class GoogleChart {
                     [1]
                 )
             }
-            console.log(joinedTable)
             this.tableToRender = new google.visualization.DataView(joinedTable)
         }
         const series = {}
@@ -91,7 +99,7 @@ export class GoogleChart {
     }
 
     countriesChanged(countries) {
-        this.renderedCountries = countries
+        this.countries = countries
         this.updateChart()
     }
 
