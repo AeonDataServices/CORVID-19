@@ -28,6 +28,7 @@ export const Util = {
     'China': '#665191',
     'India': '#255e7e',
     'Belgium': '#488f31',
+    'Turkey': '#FF92FD'
   },
   defaultColorsArray: [
     '#003f5c',
