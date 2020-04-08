@@ -62,6 +62,14 @@ export const Util = {
     if (cssClass) element.setAttribute('class', cssClass)
     return element
   },
+  appendElement2: (target, type, content, cssClass, cssId) => {
+    let element = document.createElement(type)
+    target.appendChild(element)
+    element.innerHTML = content
+    if (cssClass) element.setAttribute('class', cssClass)
+    if (cssId) element.setAttribute('id', cssId)
+    return element
+  },
   gerateDataTable: (columns, rows) => {
     const dataTable = new google.visualization.DataTable()
     for (const column of columns)
