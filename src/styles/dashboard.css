@@ -21,3 +21,22 @@
 #leftCards, #rightCards {
 	margin-top: 10px;
 }
+
+#mobileDrawer {
+	padding-top: 20px;
+}
+
+#mobileDrawer .pageLink {
+	font-size: 1.6em;
+	opacity: 0.9;
+	position: relative;
+}
+
+#mobileDrawer .pageLink:hover {
+	opacity: 1;
+}
+
+#mobileDrawer .pageLink:active {
+	opacity: 1;
+	top: 1px;
+}
