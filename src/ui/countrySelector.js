@@ -39,7 +39,7 @@ export class CountrySelector extends Observable {
   changeColorEvent(countryName, event) {
     const color = event.target.value
     countryName.color = color
-    let countryLabel = document.querySelector(`#colorPicker${countryName.baseData.alpha3}`)
+    const countryLabel = this.listDiv.querySelector(`#colorPicker${countryName.baseData.alpha3}`)
     countryLabel.style.backgroundColor = color
     this.notifyObservers(this.selectedCountries)
   }
