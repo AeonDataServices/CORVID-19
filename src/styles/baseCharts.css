@@ -1,6 +1,15 @@
 .chartWrapper {
 	position: relative;
+	width: 50%;
 }
+
+#baseCharts {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/* Change chart settings inputs */
+
 .inputs {
 	position: absolute;
 	left: 40px;
@@ -19,11 +28,21 @@
 	margin-top: 5px;
 }
 
-.chartWrapper {
-	width: 50%;
+/* Countries Side Nav */
+
+.colorLabel {
+	width: 31px;
+	height: 31px;
+	border-radius: 50%;
+	box-shadow: 1px 1px;
+	transition: 0.3s;
 }
 
-#baseCharts {
-	display: flex;
-	flex-wrap: wrap;
+.colorLabel:hover {
+	width: 33px;
+	height: 33px;
+}
+
+.colorLabel .colorPicker {
+	opacity: 0;
 }
