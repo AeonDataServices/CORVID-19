@@ -106,14 +106,3 @@ body nav {
 footer.page-footer {
   padding-top: 0;
 }
-
-.colorLabel {
-  width: 32px;
-  height: 32px;
-  background-color: black;
-
-}
-
-input {
-  opacity: 0;
-}
