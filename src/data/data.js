@@ -67,9 +67,9 @@ class DataService {
 
   createCountries() {
     this.countries = []
-    for (const country of this.getFocusedCountries()) {
+    for (const [index, country] of this.getFocusedCountries().entries()) {
       loadingScreen.updateText(`Processing data for ${country}`)
-      this.countries.push(new Country(country, Util.defaultColors[country], this.getCountryData(country)))
+      this.countries.push(new Country(country, Util.defaultColorsArray[index % Util.defaultColorsArray.length], this.getCountryData(country)))
     }
   }
 
