@@ -43,16 +43,17 @@ export class BubbleChart {
 
     draw() {
         this.chart.draw(this.tableToRender, {
-            colorAxis: {colors: ['white', '#ff3333'], legend: {position: 'bottom'}},
+            colorAxis: {colors: ['white', '#ff3333'], legend: {position: 'bottom', numberFormat: "# '%'"}},
             title: 'Case growth percent for the past 5 days compared to days since since exceeding a 100 cases',
             bubble: {
                 textStyle: {
                   auraColor: 'none'
                 }
               },
-			hAxis: {format: '# Days', ticks:[{v:0,f:''},20,40,60,80,100]},
+			hAxis: {format: '# Days', ticks:[{v:0,f:''},10,20,30,40,50,60,70,80,90,100]},
             vAxis: {format: "#'%'"},
-            chartArea: {'width': '85%'}
+            chartArea: {'width': '85%'},
+            width: '100%'
 		})
     }
 }
