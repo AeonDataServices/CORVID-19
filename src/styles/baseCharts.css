@@ -44,6 +44,31 @@
 
 /* Countries Side Nav */
 
+.countrySelector {
+	padding: 10px 20px;
+	width: 250px;
+  }
+  
+.countries-list p {
+margin: 10px 0;
+display: flex;
+justify-content: space-between;
+}
+
+@media (max-width: 800px) {
+	.countries-list p {
+		padding: 0 30px;
+	}
+}
+
+.sidebar-content {
+padding: 0 5px;
+}
+
+.sidebar-content {
+padding: 0 5px;
+}
+
 .colorLabel {
 	width: 31px;
 	height: 31px;
