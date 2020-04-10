@@ -45,7 +45,10 @@ export class BubbleChart {
         this.chart.draw(this.tableToRender, {
 			colorAxis: {colors: ['white', 'red']},
 			hAxis: {title: 'Days since >100 cases recorded'},
-            vAxis: {title: 'Case growth % (past 5 days)'},
+            vAxis: {
+                title: 'Case growth (past 5 days)',
+                format: "#'%'"
+            },
             chartArea: {'width': '85%'}
 		})
     }
