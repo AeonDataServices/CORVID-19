@@ -28,13 +28,15 @@
 	margin-top: 5px;
 }
 
-@media screen and (min-width: 800px) {
+@media (min-width: 800px) {
 	#bubbleChart {
-		min-width: 800px;
+		min-width: 500px;
+		max-width: 1000px;
+		min-height: 700px;
 	}
 }
 
-@media screen and (max-width: 800px) {
+@media (max-width: 800px) {
 	#bubblechart {
 		min-width: auto;
 	}
