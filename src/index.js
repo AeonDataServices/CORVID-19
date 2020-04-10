@@ -23,12 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		new GoogleChart('#baseCharts', countrySelector, 'Total confirmed cases','getTotalCasesByDate')
 		new GoogleChart('#baseCharts', countrySelector, 'New cases','getNewCasesByDate')
 		new GoogleChart('#baseCharts', countrySelector, 'Growth rate','getGrowthRateByDate', {
-		  vAxis:
-		  {
-			  logScale: true
+		  vAxis:  {
+				logScale: true,
+				format: "#'%'"
 		  }
 		})
-		new GoogleChart('#baseCharts', countrySelector, 'Death rate','getDeathRateByDate')
+		new GoogleChart('#baseCharts', countrySelector, 'Death rate','getDeathRateByDate', {
+			vAxis: {
+				format: "#'%'"
+			}
+		})
 		new GoogleChart('#JHUCharts', countrySelector, 'Recoveries','getRecoveriesByDate')
 		new GoogleChart('#JHUCharts', countrySelector, 'Active cases','getActiveCasesByDate')
 		new BubbleChart('#miscCharts', countrySelector, 'Bubble chart of Growth rate, Time since outbreak, Death rate and Total cases')
