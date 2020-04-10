@@ -28,79 +28,8 @@ body nav {
   padding-top: 64px;
 }
 
-.infoWrapper {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  background-color: white;
-}
-
 .chart {
   height: 40vh;
-}
-
-.chartContainer.margin-top {
-  margin-top: 50px;
-}
-
-.chartTooltip {
-  color: #1D2129;
-  display: inline;
-  margin: 2vh;
-}
-
-.hContainer {
-  position: absolute;
-  top: 0; left: 0;
-  z-index: 5;
-  margin-top: 40px;
-  margin-left: 60px;
-}
-
-.bar:hover {
-  fill: white;
-}
-
-.countrySelector {
-  padding: 10px 20px;
-  width: 250px;
-}
-
-.countryOption {
-  display: flex;
-  justify-content: space-between;
-  border: solid 1px pink;
-  border-radius: 2px;
-  padding: 2px 5px;
-}
-
-.countries-list p {
-  margin: 10px 0;
-  display: flex;
-  justify-content: space-between;
-}
-
-.tabs {
-  margin-top: 40px;
-}
-
-.inline-numeric {
-  width:40px !important;
-}
-
-.sidebar-content {
-  padding: 0 5px;
-}
-
-.sidebar-content {
-  padding: 0 5px;
-}
-
-.panel-header .chevron {
-  width: 24px;
-  border: solid 1px gray;
-  border-radius: 5px;
-  text-align: center;
 }
 
 footer.page-footer {
