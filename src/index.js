@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		new MainTable('#mainTable')
 		const countryReport = new CountryReport('#country')
 		new GoogleChart('#country #detail-charts', countryReport, 'New cases','getNewCasesByDate', {}, true, false, false, false)
-		new GoogleChart('#country #detail-charts', countryReport, 'Growth rate','getGrowthRateByDate', {}, true, false, false, false)
+		new GoogleChart('#country #detail-charts', countryReport, 'Growth rate','getGrowthRateByDate', {vAxis: {format: "#'%'"}}, true, false, false, false)
 		new PageManager('body')
   })
   const sidenav = document.querySelectorAll('.sidenav');
