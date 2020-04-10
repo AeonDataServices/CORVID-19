@@ -8,7 +8,7 @@ export class BubbleChart {
 
         const container = document.querySelector(elementID)
         this.element = Util.appendElement(container, 'div', '', 'chartWrapper col s12')
-        this.chartElement = Util.appendElement(this.element, 'div', '', 'chart')
+        this.chartElement = Util.appendElement(this.element, 'div', '', 'chart', 'bubbleChart')
 
         this.countries = dataService.getCountries()
 
@@ -45,7 +45,8 @@ export class BubbleChart {
         this.chart.draw(this.tableToRender, {
 			colorAxis: {colors: ['white', 'red']},
 			hAxis: {title: 'Days since >100 cases recorded'},
-			vAxis: {title: 'Case growth % (past 5 days)'}
+            vAxis: {title: 'Case growth % (past 5 days)'},
+            chartArea: {'width': '85%'}
 		})
     }
 }

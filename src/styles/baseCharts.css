@@ -28,6 +28,18 @@
 	margin-top: 5px;
 }
 
+@media screen and (min-width: 800px) {
+	#bubbleChart {
+		min-width: 800px;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	#bubblechart {
+		min-width: auto;
+	}
+}
+
 /* Countries Side Nav */
 
 .colorLabel {
