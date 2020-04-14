@@ -46,3 +46,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidenavInstance = M.Sidenav.init(sidenav, {closeOnClick: true, edge: 'right'}); 
 
 })
+
+document.getElementById('filterChartCountries').addEventListener('keyup', () => {
+	const input = document.getElementById("filterChartCountries");
+	const filter = input.value.toUpperCase();
+	const countriesContainer = document.querySelector(".countries-list");
+	const p = countriesContainer.getElementsByTagName("p");
+	for (let index = 0; index < p.length; index++) {
+		const label = p[index].getElementsByTagName("label")[0];
+		const span= label.getElementsByTagName("span")[0];
+		const textValue = span.textContent || span.innerText;
+		if (textValue.toUpperCase().indexOf(filter) > -1) {
+			p[index].style.display = "";
+		} else {
+			p[index].style.display = "none";
+		}
+	  }
+  });
+
