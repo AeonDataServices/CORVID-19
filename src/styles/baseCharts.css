@@ -40,6 +40,15 @@
 	#bubblechart {
 		min-width: auto;
 	}
+
+	.sidebar-content {
+		max-height: 30vh;
+		display: block;
+		margin-bottom: 20px;
+		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+	}
+
 }
 
 /* Countries Side Nav */
