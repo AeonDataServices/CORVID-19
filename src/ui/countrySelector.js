@@ -8,6 +8,7 @@ export class CountrySelector extends Observable {
     this.listDiv = document.querySelector(elementID)
     this.selectedCountries = defaultCountries
     this.renderCountryList()
+    this.filterChartCountries()
   }
 
   renderCountryList() {
@@ -61,4 +62,25 @@ export class CountrySelector extends Observable {
   isCountrySelected(countryName) {
     return (this.selectedCountries.findIndex(country => country.getName() === countryName) > -1)
   }
+
+  filterChartCountries() {
+    document.getElementById('filterChartCountries').addEventListener('keyup', () => {
+      const input = document.getElementById("filterChartCountries");
+      const filter = input.value.toUpperCase();
+      const p = this.listDiv .getElementsByTagName("p");
+      for (let index = 0; index < p.length; index++) {
+        const label = p[index].getElementsByTagName("label")[0];
+        const span= label.getElementsByTagName("span")[0];
+        const textValue = span.textContent || span.innerText;
+        if (textValue.toUpperCase().indexOf(filter) > -1) {
+          p[index].style.display = "";
+        } else {
+          p[index].style.display = "none";
+        }
+        }
+      });
+  }
+
+  
+
 }
