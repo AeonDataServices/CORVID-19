@@ -38,6 +38,7 @@ export class CountryReport extends Observable {
 
 	findCountryMeasures() {
 		this.countryMeasures = new ContainmentMeasures(this.country.getName())
+		
 	}
 
 	printReport() {
@@ -50,6 +51,7 @@ export class CountryReport extends Observable {
 		this.setText('#deaths', this.country.getTotalDeaths())
 		this.setText('#deathRate', this.country.getTotalDeathRate())
 		this.element.querySelector('#measuresList').innerHTML = ''
+		this.countryMeasures.countryMeasures = this.countryMeasures.countryMeasures.sort((a,b) => a['Date Start']>b['Date Start'])
 		for (const measure of this.countryMeasures.countryMeasures) {
 			this.printMeasure(measure)
 		}
