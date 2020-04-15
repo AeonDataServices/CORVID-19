@@ -9,7 +9,7 @@ export class CountrySelector extends Observable {
     this.searchInputElement = document.getElementById(SearchInputId)
     this.selectedCountries = defaultCountries
     this.renderCountryList()
-    this.AddSearchEventlistener()
+    this.addEventlistenerToSearchInput()
   }
 
   renderCountryList() {
@@ -64,7 +64,7 @@ export class CountrySelector extends Observable {
     return (this.selectedCountries.findIndex(country => country.getName() === countryName) > -1)
   }
 
-  filterSearchEvent(event) {
+  filterCountryOnKeyUpEvent(event) {
     const paragraph = event.target.parentElement.getElementsByTagName('p')
     for (let index = 0; index < paragraph.length; index++) {
       const label = paragraph[index].getElementsByTagName('label')[0]
@@ -78,7 +78,7 @@ export class CountrySelector extends Observable {
     }
   }
 
-  AddSearchEventlistener() {
-    this.searchInputElement.addEventListener('keyup', this.filterSearchEvent)
+  addEventlistenerToSearchInput() {
+    this.searchInputElement.addEventListener('keyup', this.filterCountryOnKeyUpEvent)
   }
 }
