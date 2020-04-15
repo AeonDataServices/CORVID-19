@@ -3,12 +3,13 @@ import { Util } from '../util/utility.js'
 import { Observable } from '../util/observable.js'
 
 export class CountrySelector extends Observable {
-  constructor(elementID, defaultCountries = [dataService.getCountries()[9]]) {
+  constructor(elementID, defaultCountries = [dataService.getCountries()[9]], SearchInputId = 'search-chart-countries') {
     super()
-    this.listDiv = document.querySelector(elementID)
+    this.listDiv = document.getElementById(elementID)
+    this.searchInputElement = document.getElementById(SearchInputId)
     this.selectedCountries = defaultCountries
     this.renderCountryList()
-    this.filterChartCountries()
+    this.AddSearchEventlistener()
   }
 
   renderCountryList() {
@@ -63,24 +64,21 @@ export class CountrySelector extends Observable {
     return (this.selectedCountries.findIndex(country => country.getName() === countryName) > -1)
   }
 
-  filterChartCountries() {
-    document.getElementById('filterChartCountries').addEventListener('keyup', () => {
-      const input = document.getElementById("filterChartCountries");
-      const filter = input.value.toUpperCase();
-      const p = this.listDiv .getElementsByTagName("p");
-      for (let index = 0; index < p.length; index++) {
-        const label = p[index].getElementsByTagName("label")[0];
-        const span= label.getElementsByTagName("span")[0];
-        const textValue = span.textContent || span.innerText;
-        if (textValue.toUpperCase().indexOf(filter) > -1) {
-          p[index].style.display = "";
-        } else {
-          p[index].style.display = "none";
-        }
-        }
-      });
+  filterSearchEvent(event) {
+    const paragraph = event.target.parentElement.getElementsByTagName('p')
+    for (let index = 0; index < paragraph.length; index++) {
+      const label = paragraph[index].getElementsByTagName('label')[0]
+      const span= label.getElementsByTagName('span')[0]
+      const textValue = span.textContent || span.innerText
+      if (textValue.toUpperCase().indexOf(event.target.value.toUpperCase()) > -1) {
+        paragraph[index].style.display = ''
+      } else {
+        paragraph[index].style.display = 'none'
+      }
+    }
   }
 
-  
-
+  AddSearchEventlistener() {
+    this.searchInputElement.addEventListener('keyup', this.filterSearchEvent)
+  }
 }
