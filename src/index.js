@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	loadingScreen.finishLoading()
 
 		new Dashboard()
-		const countrySelector = new CountrySelector('.countries-list')
+		const countrySelector = new CountrySelector('countries-list')
 		new GoogleChart('#baseCharts', countrySelector, 'Total confirmed cases','getTotalCasesByDate')
 		new GoogleChart('#baseCharts', countrySelector, 'New cases','getNewCasesByDate')
 		new GoogleChart('#baseCharts', countrySelector, 'Growth rate','getGrowthRateByDate', {
