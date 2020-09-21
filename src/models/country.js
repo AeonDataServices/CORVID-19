@@ -184,6 +184,10 @@ export class Country {
         const pop100k =  (this.miscData.population) / 100000
         return this.getTotalCases() / pop100k
     }
+    getDeathsDensity() {
+        const pop100k =  (this.miscData.population) / 100000
+        return this.getTotalDeaths() / pop100k
+    }
     getRecentGrowth(start = 5, days = 5) {
         const casesPct = this.baseData['casesPct']
         const daysToAverage = casesPct.slice(casesPct.length - start, casesPct.length - start + days).map(data => data[1])

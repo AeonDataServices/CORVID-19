@@ -25,8 +25,8 @@ class DataService {
   getFocusedCountries() {
     //return this.validCountries
     // ,'Czech Republic'
-    return ['Australia', 'Belgium', 'Canada', 'China', 'Czechia', 'Denmark', 'Finland', 'France', 'Germany', 'India', 'Ireland', 'Italy', 
-            'Netherlands', 'Norway', 'Poland', 'Spain', 'Sweden', 'Turkey', 'United Kingdom', 'United States']
+    return ['Australia', 'Belgium', 'Canada', 'China', 'Czechia', 'Denmark', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Ireland', 'Italy', 
+            'Netherlands', 'Norway', 'Poland', 'Spain', 'South Korea', 'Sweden', 'Turkey', 'United Kingdom', 'United States']
   }
 
   getValidCountries() {
@@ -44,6 +44,7 @@ class DataService {
     loadingScreen.updateText('Google Charts loaded')
     loadingScreen.updateText('Getting ECDC data')
     this.dataSet = await fetch('https://aeonds.com/api/full_data',{method: 'GET'}).then(res => res.json())
+    console.log(this.dataSet)
     loadingScreen.updateText('ECDC Data Loaded')
     loadingScreen.updateText('Getting country data')
     const countriesAPIResponse = await fetch('https://restcountries.eu/rest/v2/all',{method: 'GET'}).then(res => res.json())
@@ -71,6 +72,7 @@ class DataService {
       loadingScreen.updateText(`Processing data for ${country}`)
       this.countries.push(new Country(country, Util.defaultColorsArray[index % Util.defaultColorsArray.length], this.getCountryData(country)))
     }
+    console.log(this.countries)
   }
 
   getCountry(name) {

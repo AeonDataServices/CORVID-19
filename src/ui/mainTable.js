@@ -18,6 +18,7 @@ export class MainTable {
 			'Country',
 			'Total cases',
 			'Case density',
+			'Deaths density',
 			'New cases(5d)',
 			'New cases(24h)',
 			'Overall death rate',
@@ -64,6 +65,7 @@ export class MainTable {
 			country.getName(),
 			country.getTotalCases(),
 			country.getCaseDensity(),
+			country.getDeathsDensity(),
 			country.getRecentGrowth(),
 			country.getCurrentGrowthRate(),
 			country.getTotalDeathRate()
@@ -73,11 +75,12 @@ export class MainTable {
 		})
 	}
 
-	renderCountryRow([country, name, cases, density, recentGrowth, growth, deathRate]) {
+	renderCountryRow([country, name, cases, density, deathsDensity, recentGrowth, growth, deathRate]) {
 		const row = Util.appendElement(this.tbody, 'tr', '', '')
 		Util.appendElement(row, 'td', name, '')
 		Util.appendElement(row, 'td', Util.commaSeparatedNumber(cases), '')
 		Util.appendElement(row, 'td', `${Math.round(density)}/100k`, '')
+		Util.appendElement(row, 'td', `${Math.round(deathsDensity)}/100k`, '')
 		Util.appendElement(row, 'td', `${recentGrowth}%`, '')
 		const growthYesterday = country.getRecentGrowth(2,1)
 		let changeIcon = ''
