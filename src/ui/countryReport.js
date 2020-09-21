@@ -12,7 +12,7 @@ export class CountryReport extends Observable {
 		this.findCountryMeasures()
 		this.printReport()
 	}
-	
+
 	initSelector() {
 		const selector = this.element.querySelector('#countriesSelector')
 		const countries = dataService.getFocusedCountries()
@@ -31,13 +31,13 @@ export class CountryReport extends Observable {
 		this.printReport()
 		this.notifyObservers([this.country])
 	}
-	
+
 	getSelectedCountries() {
 		return [this.country]
 	}
 
 	findCountryMeasures() {
-		this.countryMeasures = new ContainmentMeasures(this.country.getName())
+		//this.countryMeasures = new ContainmentMeasures(this.country.getName())
 		
 	}
 

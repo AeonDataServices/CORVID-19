@@ -14,7 +14,7 @@ loadingScreen.updateText('Loading DOM')
 document.addEventListener('DOMContentLoaded', () => {
   loadingScreen.updateText('DOM loaded')
   loadingScreen.updateText('Initializing Data')
-  
+
   dataService.isDataInitialized().then(() => {
 	loadingScreen.finishLoading()
 
@@ -33,18 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
 				format: "#'%'"
 			}
 		})
-		new GoogleChart('#JHUCharts', countrySelector, 'Recoveries','getRecoveriesByDate')
-		new GoogleChart('#JHUCharts', countrySelector, 'Active cases','getActiveCasesByDate')
-		new BubbleChart('#miscCharts', countrySelector, 'Bubble chart of Growth rate, Time since outbreak, Death rate and Total cases')
+		//new GoogleChart('#JHUCharts', countrySelector, 'Recoveries','getRecoveriesByDate')
+		//new GoogleChart('#JHUCharts', countrySelector, 'Active cases','getActiveCasesByDate')
+		//new BubbleChart('#miscCharts', countrySelector, 'Bubble chart of Growth rate, Time since outbreak, Death rate and Total cases')
 		//new GoogleChart('#miscCharts', countrySelector, 'Active cases','getTotalCasesFromDeaths')
 		new MainTable('#mainTable')
-		const countryReport = new CountryReport('#country')
-		new GoogleChart('#country #detail-charts', countryReport, 'New cases','getNewCasesByDate', {}, true, false, false, false)
-		new GoogleChart('#country #detail-charts', countryReport, 'Growth rate','getGrowthRateByDate', {vAxis: {format: "#'%'"}}, true, false, false, false)
+		//const countryReport = new CountryReport('#country')
+		//new GoogleChart('#country #detail-charts', countryReport, 'New cases','getNewCasesByDate', {}, true, false, false, false)
+		//new GoogleChart('#country #detail-charts', countryReport, 'Growth rate','getGrowthRateByDate', {vAxis: {format: "#'%'"}}, true, false, false, false)
 		new PageManager('body')
   })
   const sidenav = document.querySelectorAll('.sidenav');
-  const sidenavInstance = M.Sidenav.init(sidenav, {closeOnClick: true, edge: 'right'}); 
+  const sidenavInstance = M.Sidenav.init(sidenav, {closeOnClick: true, edge: 'right'});
 
 })
 

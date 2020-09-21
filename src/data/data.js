@@ -25,7 +25,7 @@ class DataService {
   getFocusedCountries() {
     //return this.validCountries
     // ,'Czech Republic'
-    return ['Australia', 'Belgium', 'Canada', 'China', 'Czechia', 'Denmark', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Ireland', 'Italy', 
+    return ['Australia', 'Belgium', 'Canada', 'China', 'Czechia', 'Denmark', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Ireland', 'Italy',
             'Netherlands', 'Norway', 'Poland', 'Spain', 'South Korea', 'Sweden', 'Turkey', 'United Kingdom', 'United States']
   }
 
@@ -34,7 +34,7 @@ class DataService {
   }
 
   getAvailabeTableNames() {
-    return ['cases', 'newCases', 'casesPct', 'deaths', 'newDeaths', 'deathRate','recoveries']
+    return ['cases', 'newCases', 'casesPct', 'deaths', 'newDeaths', 'deathRate']
   }
 
   async prepareData() {
@@ -48,10 +48,13 @@ class DataService {
     loadingScreen.updateText('ECDC Data Loaded')
     loadingScreen.updateText('Getting country data')
     const countriesAPIResponse = await fetch('https://restcountries.eu/rest/v2/all',{method: 'GET'}).then(res => res.json())
-    loadingScreen.updateText('Getting recovery data')
-    const recoveriesAPIResponse = await fetch('https://aeonds.com/api/recovery_data',{method: 'GET'}).then(res => res.json())
-    loadingScreen.updateText('Getting government measures data')
-    this.containmentMeasures = await fetch('https://aeonds.com/api/containment_measures',{method: 'GET'}).then(res => res.json())
+    console.log(countriesAPIResponse);
+    //loadingScreen.updateText('Getting recovery data')
+    //const recoveriesAPIResponse = await fetch('https://aeonds.com/api/recovery_data',{method: 'GET'}).then(res => res.json())
+    const recoveriesAPIResponse = {};
+    //loadingScreen.updateText('Getting government measures data')
+    //this.containmentMeasures = await fetch('https://aeonds.com/api/containment_measures',{method: 'GET'}).then(res => res.json())
+    this.containmentMeasures = {};
     for (const country of Object.keys(this.dataSet)) {
       if(recoveriesAPIResponse[country]) this.dataSet[country].recoveries = recoveriesAPIResponse[country].recovered
     }
@@ -96,6 +99,7 @@ class DataService {
     let country = this.dataSet[countryName]
     if (typeof country.cases[0][0] === 'string')
       for (let subset of this.getAvailabeTableNames()) {
+        console.log(subset);
         country[subset] = country[subset].map(d => {
           const date = new Date(d[0])
           date.setHours(0,0,0,0)
