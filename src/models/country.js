@@ -11,10 +11,10 @@ export class Country {
     }
 
     processData() {
-        this.fixRecoveryData()
+        //this.fixRecoveryData()
         this.clipCurrentDay()
         this.generateDayReferenceData()
-        this.generateActiveCases()
+        //this.generateActiveCases()
         this.generateMeasuresReference()
         const dataToExtract = dataService.getAvailabeTableNames()
         for (const dataName of dataToExtract) {
@@ -122,7 +122,7 @@ export class Country {
             [1],
             [1]
         )
-        //if (this.measuresReference) {          
+        //if (this.measuresReference) {
         //    joinedTable = google.visualization.data.join(
         //        joinedTable,
         //        this.measuresReference,
@@ -195,7 +195,7 @@ export class Country {
     }
     getRecentGrowthChange(dayCount = 7) {
         const firstGrowth = this.getRecentGrowth(dayCount, dayCount)
-        const secondGrowth = this.getRecentGrowth(2*dayCount, dayCount)   
+        const secondGrowth = this.getRecentGrowth(2*dayCount, dayCount)
         return firstGrowth - secondGrowth
     }
 
