@@ -3,7 +3,7 @@ import { Util } from '../util/utility.js'
 import { Observable } from '../util/observable.js'
 
 export class CountrySelector extends Observable {
-  constructor(elementID, defaultCountries = [dataService.getCountries()[9]], SearchInputId = 'search-chart-countries') {
+  constructor(elementID, defaultCountries = [dataService.getCountries()[0]], SearchInputId = 'search-chart-countries') {
     super()
     this.listDiv = document.getElementById(elementID)
     this.searchInputElement = document.getElementById(SearchInputId)

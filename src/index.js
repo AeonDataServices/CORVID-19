@@ -21,13 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		new Dashboard()
 		const countrySelector = new CountrySelector('countries-list')
 		new GoogleChart('#baseCharts', countrySelector, 'Total confirmed cases','getTotalCasesByDate')
+    new GoogleChart('#baseCharts', countrySelector, 'Assumed active cases (14 day avg recovery)','getActiveCasesByDate')
 		new GoogleChart('#baseCharts', countrySelector, 'New cases','getNewCasesByDate')
-		new GoogleChart('#baseCharts', countrySelector, 'Growth rate','getGrowthRateByDate', {
+		new GoogleChart('#baseCharts', countrySelector, 'New cases per 100k population','getNewCasesPerCapitaByDate')
+		new GoogleChart('#baseCharts', countrySelector, 'Growth rate (% of population)','getGrowthRateByDate', {
 		  vAxis:  {
 				logScale: true,
 				format: "#'%'"
 		  }
 		})
+		new GoogleChart('#baseCharts', countrySelector, 'New Deaths','getNewDeathsByDate')
+  	new GoogleChart('#baseCharts', countrySelector, 'Deaths','getDeathsByDate')
 		new GoogleChart('#baseCharts', countrySelector, 'Death rate','getDeathRateByDate', {
 			vAxis: {
 				format: "#'%'"
@@ -47,4 +51,3 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidenavInstance = M.Sidenav.init(sidenav, {closeOnClick: true, edge: 'right'});
 
 })
-
