@@ -25,8 +25,10 @@ class DataService {
   getFocusedCountries() {
     //return this.validCountries
     // ,'Czech Republic'
+    //return ['Canada']
     return ['Australia', 'Belgium', 'Canada', 'China', 'Czechia', 'Denmark', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Ireland', 'Italy',
-            'Netherlands', 'Norway', 'Poland', 'Spain', 'South Korea', 'Sweden', 'Turkey', 'United Kingdom', 'United States']
+            'Netherlands', 'Norway', 'Poland', 'Spain', 'South Korea', 'Sweden', 'Turkey', 'United Kingdom', 'United States',
+            'Portugal', 'Brazil', 'Latvia']
   }
 
   getValidCountries() {

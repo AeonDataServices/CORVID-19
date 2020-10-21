@@ -14,8 +14,10 @@ export class Country {
         //this.fixRecoveryData()
         this.clipCurrentDay()
         this.generateDayReferenceData()
+        this.generateAssumedRecoveriesData()
+        this.generateAssumedActiveCases()
         //this.generateActiveCases()
-        this.generateMeasuresReference()
+        //this.generateMeasuresReference()
         const dataToExtract = dataService.getAvailabeTableNames()
         for (const dataName of dataToExtract) {
             const data = new google.visualization.DataTable()
@@ -33,6 +35,7 @@ export class Country {
             //)
             //this[dataName] = joinedTable
         }
+        this.generateGrowthRatePopulation()
     }
 
     clipCurrentDay() {
@@ -97,19 +100,52 @@ export class Country {
         this.activeCases = this.joinMetaData(activeCasesTable)
     }
 
+    generateAssumedActiveCases() {
+        console.log(this.assumedRecoveries)
+        const activeCases = this.baseData.cases.map(([date, val], index) => {
+            const recoveries = (this.assumedRecoveriesArray[index]) ? this.assumedRecoveriesArray[index][1] : 0
+            console.log(recoveries)
+            return [date, val - recoveries]
+        })
+        activeCases.splice(this.baseData.cases.length - 1)
+        const activeCasesTable = Util.gerateDataTable([['datetime', 'Date'], ['number', this.name]], activeCases)
+        this.activeCases = this.joinMetaData(activeCasesTable)
+    }
+
+    generateGrowthRatePopulation() {
+        const pop100k =  (this.miscData.population) / 100000
+        const newCasesPop = this.baseData.newCases.map(([date, val], index) => {
+            return [date, val / pop100k]
+        })
+        const casesPctTable = Util.gerateDataTable([['datetime', 'Date'], ['number', this.name]], newCasesPop)
+        this.casesPctPop = this.joinMetaData(casesPctTable)
+    }
+
+    generateDeathsPopulation() {
+        const pop100k =  (this.miscData.population) / 100000
+        const deathsPop = this.baseData.deaths.map(([date, val], index) => {
+            return [date, val / pop100k]
+        })
+        const deathsPopTable = Util.gerateDataTable([['datetime', 'Date'], ['number', this.name]], deathsPop)
+        this.deathsPop = this.joinMetaData(deathsPopTable)
+    }
+
     generateAssumedRecoveriesData(recoveryTime = 14) {
         const newCases = this.baseData['newCases']
-        const newDeaths = this.baseData['newDeaths']
         const assumedRecoveries = []
-        for (let index = newCases.length - 1; index >= 0; index--) {
+        let rollingRecoveries = 0
+        for (let index = 0; index < newCases.length - 1; index++) {
             const date = newCases[index][0]
             if (index < recoveryTime) {
                 assumedRecoveries[index] = [date, 0]
                 continue
             }
             const cases = newCases[index - recoveryTime][1]
-            assumedRecoveries[index] = [date, cases]
+            console.log(cases, rollingRecoveries)
+            rollingRecoveries  = rollingRecoveries + cases
+            assumedRecoveries[index] = [date, rollingRecoveries]
         }
+        this.assumedRecoveriesArray = assumedRecoveries
         this.assumedRecoveries = Util.gerateDataTable([['datetime', 'Date'], ['number', this.name]], assumedRecoveries)
     }
 
@@ -152,6 +188,12 @@ export class Country {
     }
     getNewCasesByDate() {
         return this.newCases
+    }
+    getNewCasesPerCapitaByDate() {
+        return this.casesPctPop
+    }
+    getDeathsPerCapitaByDate() {
+      return this.deathsPop
     }
     getNewDeathsByDate() {
         return this.newDeaths
