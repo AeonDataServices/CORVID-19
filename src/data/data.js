@@ -45,8 +45,19 @@ class DataService {
     await google.charts.setOnLoadCallback(() => {})
     loadingScreen.updateText('Google Charts loaded')
     loadingScreen.updateText('Getting ECDC data')
-    this.dataSet = await fetch('https://aeonds.com/api/full_data',{method: 'GET'}).then(res => res.json())
+    loadingScreen.updateText('Getting cases and deaths')
+    // sometimes our API does a no-no so now we get it as string and replace any NaN data with 0 so our json can still parse
+    const dataString = await fetch('https://aeonds.com/api/full_data',{method: 'GET'}).then(res => res.text())
+    this.dataSet = JSON.parse(dataString.replace("NaN","0"))
     console.log(this.dataSet)
+    // loadingScreen.updateText('Getting hospital admissions')
+    // this.hospitalAdmissions =
+    //   await fetch('https://opendata.ecdc.europa.eu/covid19/hospitalicuadmissionrates/json/',{method: 'GET', mode: 'no-cors'})
+    //   .then(res => res.text().then(text => JSON.parse(text)))
+    // console.log(this.hospitalAdmissions)
+    // loadingScreen.updateText('Getting testing rates')
+    // this.testingData = await fetch('https://opendata.ecdc.europa.eu/covid19/testing/json/',{method: 'GET', mode: 'no-cors'}).then(res => res.text())
+    // console.log(this.testingData)
     loadingScreen.updateText('ECDC Data Loaded')
     loadingScreen.updateText('Getting country data')
     const countriesAPIResponse = await fetch('https://restcountries.eu/rest/v2/all',{method: 'GET'}).then(res => res.json())
@@ -101,7 +112,6 @@ class DataService {
     let country = this.dataSet[countryName]
     if (typeof country.cases[0][0] === 'string')
       for (let subset of this.getAvailabeTableNames()) {
-        console.log(subset);
         country[subset] = country[subset].map(d => {
           const date = new Date(d[0])
           date.setHours(0,0,0,0)
