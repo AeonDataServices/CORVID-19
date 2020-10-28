@@ -101,10 +101,8 @@ export class Country {
     }
 
     generateAssumedActiveCases() {
-        console.log(this.assumedRecoveries)
         const activeCases = this.baseData.cases.map(([date, val], index) => {
             const recoveries = (this.assumedRecoveriesArray[index]) ? this.assumedRecoveriesArray[index][1] : 0
-            console.log(recoveries)
             return [date, val - recoveries]
         })
         activeCases.splice(this.baseData.cases.length - 1)
@@ -141,7 +139,6 @@ export class Country {
                 continue
             }
             const cases = newCases[index - recoveryTime][1]
-            console.log(cases, rollingRecoveries)
             rollingRecoveries  = rollingRecoveries + cases
             assumedRecoveries[index] = [date, rollingRecoveries]
         }
